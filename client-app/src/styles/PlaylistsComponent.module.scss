@@ -1,0 +1,442 @@
+$primary-color: #5941A9;
+$secondary-color: #FFF8F0;
+$accent-color: #010004;
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/Montserrat-Bold.ttf");
+  font-weight: 600;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/Montserrat-Regular.ttf");
+  font-weight: 300;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/Montserrat-Light.ttf");
+  font-weight: 10;
+}
+
+* {
+  font-family: "Montserrat";
+}
+
+.playlistsPage {
+  font-family: "Montserrat";
+  color: $secondary-color;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  
+  h2 {
+    margin-top: 50px;
+  }
+
+  // Header
+  .controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
+
+    .searchInput {
+      padding: 8px 12px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: 1px none #ccc;
+      background-color: rgba(217, 191, 252, 0.164);
+      width: 300px;
+      transition: all 0.3s ease;
+
+      &::placeholder {
+        color: $secondary-color;
+        font-weight: 400;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: $primary-color;
+        &::placeholder {
+          color: #ffffff00;
+        }
+      }
+    }
+
+    .filterSelect,
+    .sortSelect {
+      padding: 8px 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #cccccc62;
+      transition: all 0.3s ease;
+
+      &:focus {
+        outline: none;
+        border-color: $primary-color;
+      }
+
+      option {
+        font-size: 16px;
+      }
+    }
+  }
+
+  
+  // Playlist Grid Layout
+  .playlistsGrid {
+    display: grid;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  // PlaylistCard styling
+  .playlistCard {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .cover {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-bottom: 1px solid #eee;
+    }
+
+    .playlistDetails {
+      padding: 15px;
+
+      h4 {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #333;
+      }
+
+      .trackCount {
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 5px;
+      }
+    }
+  }
+
+  // Responsive Design for smaller screens
+  @media (max-width: 768px) {
+    .controls {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .searchInput {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .filterSelect,
+    .sortSelect {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .playlistsGrid {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+  }
+
+  @media (max-width: 480px) {
+    .controls {
+      padding: 0 10px;
+    }
+
+    .searchInput {
+      width: 100%;
+    }
+  }
+  .title {
+    margin-bottom: 3rem;
+  }
+}
+
+// Dropdown styles (reuse the same as in movies page)
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdownButton {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #251f2d;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 150px;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #4b4357;
+  }
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  background: $accent-color;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  width: max-content;
+  min-width: 150px;
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.dropdown:hover .dropdownMenu {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dropdownMenu li {
+  padding: 0.5rem 1rem;
+  list-style: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: $secondary-color;
+  transition: background-color 0.3s;
+  white-space: nowrap;
+}
+
+.dropdownMenu li:hover {
+  background-color: $secondary-color;
+  color: $primary-color;
+  font-weight: 600;
+}
+
+.dropdownMenu li.active {
+  color: $primary-color;
+  font-weight: bold;
+  background-color: $secondary-color;
+}
+.createBlock {
+  min-height: 80px;
+  min-width: 500px;
+  display: flex;
+  position: relative; /* Для абсолютного позиционирования дочерних элементов */
+  width: 100%;
+  align-items: center;
+  justify-content: center; /* Центрируем контент по горизонтали */
+  background-color: $secondary-color;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  color: $accent-color;
+  overflow: hidden;
+
+  &:hover {
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+
+    .leftBar {
+      width: 40px;
+    }
+    .rightBar {
+      width: 40px;
+    }
+  }
+
+  .content {
+    text-align: center; /* Центрируем текст */
+    background-color: $secondary-color;
+
+    .unTitle {
+      background-color: $secondary-color;
+    }
+    .description {
+      max-width: 200px;
+      background-color: $secondary-color;
+    }
+  }
+
+  .leftBar,
+  .rightBar {
+    position: absolute; /* Абсолютное позиционирование */
+    top: 0;
+    height: 100%; /* Растягиваем на всю высоту блока */
+    width: 20px;
+    background-color: #5b3cc4;
+    transition: width 0.3s ease;
+  }
+
+  .leftBar {
+    left: 0; /* Привязываем к левому краю */
+  }
+
+  .rightBar {
+    right: 0; /* Привязываем к правому краю */
+  }
+}/* Фон модального окна */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6); /* Затемнение фона */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Контент модального окна */
+.modalContent {
+  background: $primary-color; /* Фиолетовый цвет фона */
+  border-radius: 16px;
+  width: 90%; /* Адаптивная ширина */
+  max-width: 500px; /* Максимальная ширина */
+  padding: 30px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+/* Заголовок модального окна */
+.modalContent h3 {
+  background-color: $primary-color;
+  margin: 0 0 20px 0;
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+  color: $secondary-color;
+}
+
+/* Поля ввода */
+.modalContent input[type="text"],
+.modalContent textarea {
+  background-color: $primary-color;
+  width: 95%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: $secondary-color;
+  color: #333;
+}
+
+.modalContent .inputGroup {
+  background-color: $primary-color
+}
+
+.modalContent textarea {
+  height: 100px; /* Высота текстового поля */
+  resize: none;
+}
+
+/* Заголовок для контента */
+.modalContent h4 {
+  background-color: $primary-color;
+  margin: 20px 0 10px 0;
+  font-size: 1.2rem;
+  color: $secondary-color;
+}
+
+.modalContent .modalActions {
+  background-color: $primary-color
+}
+
+.contentMainDiv {
+  background-color: $primary-color;
+
+}
+/* Поле поиска */
+.contentMainDiv .contentSearchInput {
+  background-color: $primary-color;
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+}
+
+/* Результаты поиска */
+.searchResults {
+  max-height: 150px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #1f1f1f;
+}
+
+.searchResults label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  font-size: 1rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+.searchResults label:hover {
+  background-color: #5e2ddb;
+}
+
+/* Переключатель */
+.searchResults input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: #5e2ddb;
+}
+
+/* Кнопки */
+.modalContent button {
+  width: 100%;
+  padding: 15px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modalContent button:first-of-type {
+  background: $secondary-color;
+  color: $primary-color;
+}
+
+.modalContent button:first-of-type:hover {
+  background: $primary-color;
+  color: $secondary-color;
+}
+
+.modalContent button:last-of-type {
+  background: #d4d4d4;
+  color: #333;
+}
+
+.modalContent button:last-of-type:hover {
+  background: #bcbcbc;
+}

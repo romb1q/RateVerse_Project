@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://postgres:123@db:5432/CourseDB
+    volumes:
+      - ./dist:/index
+      - /node_modules
+
+  client:
+    build:
+      context: ./client-app
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    stdin_open: true
+    environment:
+      - VITE_API_URL=http://localhost:5000
+    depends_on:
+      - server
+
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: CourseDB
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:

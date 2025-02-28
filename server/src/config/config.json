@@ -1,0 +1,35 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "123",
+    "database": "CourseDB",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "define": {
+      "timestamps": false
+    },
+    "url": "process.env.DATABASE_URL"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "123",
+    "database": "CourseDB",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "define": {
+      "timestamps": false
+    },
+    "url": "process.env.DATABASE_URL"
+  },
+  "production": {
+    "username": "postgres",
+    "password": "123",
+    "database": "CourseDB",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "define": {
+      "timestamps": false
+    },
+    "url": "process.env.DATABASE_URL"
+  }
+}

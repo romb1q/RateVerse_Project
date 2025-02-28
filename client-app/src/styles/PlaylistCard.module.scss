@@ -1,0 +1,124 @@
+$primary-color: #5941A9;
+$secondary-color: #FFF8F0;
+$accent-color: #010004;
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/Montserrat-Bold.ttf");
+  font-weight: 600;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/Montserrat-Regular.ttf");
+  font-weight: 300;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/Montserrat-Light.ttf");
+  font-weight: 10;
+}
+
+* {
+  font-family: "Montserrat";
+}
+
+
+.card {
+  width: 100%;
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  background-color: $secondary-color;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  overflow: hidden;
+
+  
+
+  &:hover {
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    .leftBar {
+      width: 40px;
+
+    }
+  }
+
+  .content {
+    margin-left: 1.7rem;
+    background-color: $secondary-color;
+
+    .name {
+    background-color: $secondary-color;
+    }
+    .description {
+      max-width: 200px;
+    background-color: $secondary-color;
+    }
+    
+  }
+  .actions {
+    background-color: $secondary-color;
+  }
+}
+
+.leftBar {
+  position: absolute;
+  width: 20px;
+  background-color: #5b3cc4;
+  height: 100%;
+  transition: width 0.3s ease;
+
+}
+
+.content {
+  flex: 1;
+  padding: 16px;
+}
+
+.name {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: #222;
+}
+
+.description {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  padding: 16px;
+
+  button {
+    font-size: 14px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #ddd;
+    }
+  }
+
+  .editButton {
+    background-color: #f5f5f5;
+    color: #333;
+  }
+
+  .deleteButton {
+    background-color: #eee;
+    color: #d00;
+  }
+}
+.leftBar {
+  left: 0; /* Привязываем к левому краю */
+}

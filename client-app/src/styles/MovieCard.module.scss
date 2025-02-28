@@ -1,0 +1,82 @@
+$primary-color: #5941A9;
+$secondary-color: #FFF8F0;
+$accent-color: #010004;
+@font-face {
+    font-family: 'Montserrat';
+    src: url(../assets/fonts/Montserrat-Bold.ttf);
+    font-weight: 600;
+}
+@font-face {
+    font-family: 'Montserrat';
+    src: url(../assets/fonts/Montserrat-Regular.ttf);
+    font-weight: 300;
+}
+@font-face {
+    font-family: 'Montserrat';
+    src: url(../assets/fonts/Montserrat-Light.ttf);
+    font-weight: 10;
+}
+* {
+    font-family: 'Montserrat';
+}
+.movieCard {
+  border: solid;
+  border-color: #33333342;
+  border-width: 0.1cap;
+  border-radius: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+
+  &:hover {
+    border-color: #333333af;
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  }
+
+  .poster {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    display: block; /* Убедиться, что это блочный элемент */
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30%; /* Высота затенения */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+    z-index: 1; /* Псевдоэлемент поверх изображения */
+    pointer-events: none; /* Градиент не мешает взаимодействию с элементами */
+  }
+
+  .info {
+    padding: 15px;
+    position: relative;
+    z-index: 2; /* Текст поверх затенения */
+
+    .title {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 10px 0;
+      color: $secondary-color;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .rating {
+      font-size: 14px;
+      color: #f39c12;
+      font-weight: 500;
+      margin-top: 5px;
+    }
+  }
+}
+

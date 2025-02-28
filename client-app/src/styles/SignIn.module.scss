@@ -1,0 +1,137 @@
+// SignIn.module.scss
+
+$primary-color: #5941A9;
+$secondary-color: #FFF8F0;
+$accent-color: #010004;
+@font-face {
+    font-family: 'Montserrat';
+    src: url(../assets/fonts/Montserrat-Bold.ttf);
+    font-weight: 600;
+}
+@font-face {
+    font-family: 'Montserrat';
+    src: url(../assets/fonts/Montserrat-Regular.ttf);
+    font-weight: 300;
+}
+@font-face {
+    font-family: 'Montserrat';
+    src: url(../assets/fonts/Montserrat-Light.ttf);
+    font-weight: 10;
+}
+* {
+    font-family: 'Montserrat';
+}
+.errorText {
+    background-color: $primary-color;
+    color: rgb(255, 128, 128);
+}
+.pageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: $secondary-color;
+}
+
+.logoContainer {
+    display: flex;
+    margin-bottom: 30px;
+    flex-direction: row;
+    align-items: center;
+    .logo {
+        display: flex;
+    align-items: center;
+    gap: 10px;
+    }
+   
+  .logo p {
+    font-size: 44px;
+    color: $secondary-color;
+  }
+  
+  .logo p span {
+    font-weight: 600;
+  }
+  }
+
+.signwindow {
+  background-color: $primary-color;
+  color: $secondary-color;
+  width: 400px;
+  padding: 2rem;
+  border-radius: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  div {
+  background-color: $primary-color;
+
+  }
+}
+
+.signtitle {
+  font-size: 1.8rem;
+  color: $secondary-color;
+  margin-bottom: 1rem;
+  background-color: $primary-color;
+
+}
+
+.signform {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: $primary-color;
+
+}
+
+.inputField {
+  padding: 0.8rem;
+  font-size: 1rem;
+  width: 93%;
+  border: 1px solid $primary-color;
+  border-radius: 4px;
+  color: $accent-color;
+  background-color: $secondary-color;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+  }
+}
+
+.signbutton {
+  background-color: $accent-color;
+  color: $secondary-color;
+  font-size: 1.1rem;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: $primary-color, 20%;
+  }
+}
+
+.reservecase {
+  font-size: 0.9rem;
+  color: $secondary-color;
+  margin-top: 1rem;
+
+  p {
+  background-color: $primary-color;
+
+  }
+  a {
+  background-color: $primary-color;
+
+    color: $secondary-color, 10%;
+    text-decoration: underline;
+
+    &:hover {
+      color: $secondary-color;
+      text-decoration: none;
+    }
+  }
+}

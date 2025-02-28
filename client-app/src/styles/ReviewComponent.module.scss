@@ -1,0 +1,198 @@
+$primary-color: #5941A9;
+$secondary-color: #FFF8F0;
+$accent-color: #010004;
+@font-face {
+    font-family: 'Montserrat';
+    src: url(../assets/fonts/Montserrat-Bold.ttf);
+    font-weight: 600;
+}
+@font-face {
+    font-family: 'Montserrat';
+    src: url(../assets/fonts/Montserrat-Regular.ttf);
+    font-weight: 300;
+}
+@font-face {
+    font-family: 'Montserrat';
+    src: url(../assets/fonts/Montserrat-Light.ttf);
+    font-weight: 10;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url(../assets/fonts/Montserrat-Italic.ttf);
+  font-style: italic;
+}
+*{
+  font-family: 'Montserrat';
+}
+
+.reviewContainer {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .header {
+    text-align: center;
+    font-size: 1.5rem;
+    color: $secondary-color;
+  }
+  
+  .loading,
+  .noReviews {
+    text-align: center;
+    font-size: 1rem;
+    color: #888;
+  }
+  
+  .reviewList {
+    margin-top: 30px;
+    list-style: none;
+    padding: 0;
+  }
+  
+  .reviewItem {
+    color: $secondary-color;
+    margin-bottom: 15px;
+    padding: 15px;
+    border: #333 solid;
+    border-width: 0.1cap;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    .reviewUserName{
+      color: $secondary-color;
+    }
+
+    .reviewRating{
+      .pRating{
+        color: $primary-color;
+      .spanRating {
+        margin-left: 7px;
+        color: $secondary-color;
+      }
+    }
+    }
+    .reviewText {
+      font-style: italic;
+    }
+  }
+  
+  .reviewText {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  .reviewMeta {
+    font-size: 0.85rem;
+    color: #888;
+  }
+  
+  .actionButtons {
+    display: flex;
+    gap: 10px;
+  
+    button {
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+  
+      &.deleteButton {
+        background-color: $accent-color;
+        color: $secondary-color;
+        border: 0.1cap solid #333;
+        border-radius: 7px;
+        transition: all 0.1s ease;
+
+        &:hover{
+            border: 0.2cap solid rgb(209, 97, 97);
+        }
+      }
+  
+      &.editButton {
+        background-color: $accent-color;
+        color: $secondary-color;
+        border: 0.1cap solid #333;
+        border-radius: 7px;
+        transition: all 0.1s ease;
+        
+        &:hover{
+            border: 0.2cap solid #547045;
+        }
+      }
+    }
+  }
+  
+  .addReview {
+    margin-top: 20px;
+  
+    .textarea {
+      width: 100%;
+      border: #333 solid;
+      border-width: 0.1cap;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 10px;
+
+      &:focus {
+        outline: none;
+        border: #666666 solid;
+        border-width: 0.1cap;
+      }
+    }
+  
+    .addButton {
+      background-color: #83df56ad;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        border: none;
+        color: $accent-color;
+      }
+    }
+  }
+  
+  .filterButtons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  
+  .filterButton {
+    padding: 10px;
+    background: none;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .filterButton.active {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .sortButtons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .sortButton {
+    padding: 10px;
+    background: none;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .sortButton.active {
+    background-color: #4caf50;
+    color: white;
+  }
+  

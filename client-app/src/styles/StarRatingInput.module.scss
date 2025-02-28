@@ -1,0 +1,36 @@
+$primary-color: #5941A9;
+$secondary-color: #FFF8F0;
+$accent-color: #010004;
+.starRating {
+    display: flex;
+    gap: 5px;
+    cursor: pointer;
+  }
+  
+  .star {
+    font-size: 24px;
+    color: #7e7e7e; /* Цвет звезды по умолчанию */
+    transition: color 0.2s ease;
+  
+    &:hover,
+    &.filled {
+      color: $primary-color; /* Цвет заполненной звезды */
+    }
+  }
+  
+  .resetButton {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #ff6f61;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  
+    &:hover {
+      background-color: #ff4b3a;
+    }
+  }
+  
+  

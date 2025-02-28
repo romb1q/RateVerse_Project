@@ -1,0 +1,99 @@
+
+$primary-color: #5941A9;
+$secondary-color: #FFF8F0;
+$accent-color: #010004;
+@font-face {
+    font-family: 'Montserrat';
+    src: url(../assets/fonts/Montserrat-Bold.ttf);
+    font-weight: 600;
+}
+@font-face {
+    font-family: 'Montserrat';
+    src: url(../assets/fonts/Montserrat-Regular.ttf);
+    font-weight: 300;
+}
+@font-face {
+    font-family: 'Montserrat';
+    src: url(../assets/fonts/Montserrat-Light.ttf);
+    font-weight: 10;
+}
+* {
+    font-family: 'Montserrat';
+}
+
+.watchlistContainer {
+    padding: 20px;
+    .underHeader{
+      .backButton {
+        margin-top: 20px;
+        border-radius: 8px;
+        background-color: $accent-color;
+        &:hover {
+          color: $primary-color;
+          font-weight: 600;
+        }
+      }
+    }
+    h1 {
+      align-items: center;
+    }
+  }
+  
+  h1 {
+    background: none;
+    text-align: center;
+  }
+  
+  .watchlistGrid {
+    align-items: center;
+    display: grid;
+    max-width: 1200px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .watchlistItem {
+    background: $accent-color;
+    border: #33333342 solid;
+    max-width: 160px;
+    border-width: 0.1cap;
+    border-radius: 28px;
+    text-align: center;
+    padding: 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    justify-content: center;
+    flex-direction: column;
+    display: flex;
+    &:hover{
+      border-color: #333333af;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .title {
+      color: $secondary-color;
+      background: none;
+    }
+  }
+  
+  .contentImage {
+    max-width: 100%;
+    border-radius: 6px;
+  }
+  
+  .removeButton {
+    margin-top: 10px;
+    background-color: #33333342;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .removeButton:hover {
+    border: none;
+    background-color: $primary-color;
+  }
+  

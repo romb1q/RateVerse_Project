@@ -1,0 +1,385 @@
+$primary-color: #5941A9;
+$secondary-color: #FFF8F0;
+$accent-color: #010004;
+@font-face {
+    font-family: 'Montserrat';
+    src: url(../assets/fonts/Montserrat-Bold.ttf);
+    font-weight: 600;
+}
+@font-face {
+    font-family: 'Montserrat';
+    src: url(../assets/fonts/Montserrat-Regular.ttf);
+    font-weight: 300;
+}
+@font-face {
+    font-family: 'Montserrat';
+    src: url(../assets/fonts/Montserrat-Light.ttf);
+    font-weight: 10;
+}
+*{
+  font-family: 'Montserrat';
+}
+.main{
+  font-family: 'Montserrat';
+  color: $secondary-color;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1200px;
+  padding: 0;
+
+  .underHeader {
+    margin-top: 30px;
+    width: 100%;
+    position: relative;
+    .backButton {
+      background: none;
+      display: flex;
+      color: $secondary-color;
+      &:hover {
+        border: none;
+        color: $primary-color;
+      }
+    }
+  }
+
+.contentPage {
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: 60px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 20px;
+
+  .wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  /* Левый блок: изображение */
+  .imageContainer {
+    flex: 1;
+    max-width: 300px;
+    border: 2px solid #cccccc1f;
+    border-radius: 8px;
+    overflow: hidden;
+
+    .image {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  }
+
+  /* Центральный блок: информация */
+  .infoContainer {
+    flex: 2;
+    padding: 10px;
+
+    .title {
+      font-size: 35px;
+      color: $secondary-color;
+      margin-bottom: 15px;
+    }
+  }
+
+  /* Правый блок: кнопки и рейтинг */
+  .sidebar {
+    flex: 1;
+    max-width: 300px;
+    border: 2px solid #cccccc34;
+    padding: 25px;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    .inSidebar {
+      transform: translate(0%, 30%)
+    }
+    .guestMessage {
+      text-align: center;
+      transform: translate(0%, 140%)
+    }
+    .actions {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      margin-bottom: 20px;
+
+      button {
+        padding: 0px;
+        background-color: $accent-color;
+        border: none;
+        font-size: 16px;
+        color: white;
+        cursor: pointer
+      }
+    }
+
+    .rating {
+      text-align: center;
+    }
+  }
+
+  /* Блок отзыва */
+  .reviewContainer {
+    width: 100%;
+    margin-top: 20px;
+
+    h2 {
+      margin-bottom: 10px;
+    }
+  }
+}
+}
+
+.actionButtonContainer {
+  display: flex;
+  margin-left: 5px;
+  margin-right: 5px;
+  flex-direction: column; /* Вертикальное расположение */
+  align-items: center; /* Центрирование по горизонтали */
+  justify-content: center; /* Центрирование содержимого */
+}
+
+.actionButton {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.actionText {
+  margin-top: 9px;
+  margin-bottom: 2px;
+  font-size: 14px;
+  color: #5941A9;
+  text-align: center;
+}
+
+.reviewsBlock {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+/* Стиль для кнопки добавления в плейлист */
+.addToPlaylistButton {
+  padding: 10px;
+  background-color: #5941A9;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* Стиль для модального окна */
+.modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.playlistList {
+  margin: 10px 0;
+}
+
+.playlistItem {
+  margin: 10px 0;
+}
+
+input {
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  width: 100%;
+}
+
+button {
+  padding: 10px;
+  background-color: #5941A9;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+/* Стиль для кнопки добавления в плейлист */
+.addToPlaylistButton {
+  padding: 10px;
+  background-color: $accent-color;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  max-width: 1200px;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.836);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: $secondary-color;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  text-align: center;
+}
+
+.modalContent h3 {
+  color: $primary-color;
+  background-color: $secondary-color;
+  margin-bottom: 10px;
+}
+
+.modalContent ul {
+  background-color: $secondary-color;;
+  list-style: none;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+.modalContent li {
+  margin: 5px 0;
+  background-color: $secondary-color;
+  
+  .labelPlaylist {
+    color: $accent-color;
+    font-weight: 600;
+    background-color: $secondary-color;
+    display: flex;
+    justify-content: space-between;
+    .pPlaylistName {
+      background-color: $secondary-color;
+      margin: 1rem;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .checkboxPlaylist {
+      max-width: 1rem;
+      margin: 1rem;
+    }}
+}
+
+.modalContent button {
+  margin: 5px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: transform 0.5s ease;
+
+}
+
+.modalContent button:first-of-type {
+  background: #5941A9;
+  color: white;
+  transition: transform 0.5s ease;
+  &:hover {
+    color: $accent-color;
+  }
+}
+
+.modalContent button:last-of-type {
+  background: #ccc;
+  transition: transform 0.5s ease;
+
+  &:hover {
+    background-color: #010004;
+    
+  }
+}
+.checkboxWrapper {
+  background-color: $secondary-color;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.checkboxWrapper input[type="checkbox"] {
+  
+  visibility: hidden;
+  display: none;
+}
+
+.checkboxWrapper .toggle {
+  background: none;
+  position: relative;
+  display: block;
+  width: 40px;
+  height: 20px;
+  cursor: pointer;
+  transform: translate3d(0, 0, 0);
+}
+
+.checkboxWrapper .toggle:before {
+  content: "";
+  position: relative;
+  top: 3px;
+  left: 3px;
+  width: 34px;
+  height: 14px;
+  display: block;
+  background: #9A9999;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.checkboxWrapper .toggle span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  display: block;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(154, 153, 153, 0.5);
+  transition: all 0.2s ease;
+}
+
+.checkboxWrapper .toggle span:before {
+  content: "";
+  position: absolute;
+  display: block;
+  margin: -18px;
+  width: 56px;
+  height: 56px;
+  background: rgba(79, 46, 220, 0.5);
+  border-radius: 50%;
+  transform: scale(0);
+  opacity: 1;
+  pointer-events: none;
+}
+
+.checkboxWrapper input[type="checkbox"]:checked + .toggle:before {
+  background: #947ADA;
+}
+
+.checkboxWrapper input[type="checkbox"]:checked + .toggle span {
+  background: #4F2EDC;
+  transform: translateX(20px);
+  transition: all 0.2s cubic-bezier(0.6, 0.4, 0.3, 1.25), background 0.15s ease;
+  box-shadow: 0 3px 8px rgba(79, 46, 220, 0.2);
+}
+
+.checkboxWrapper input[type="checkbox"]:checked + .toggle span:before {
+  transform: scale(1);
+  opacity: 0;
+  transition: all 0.4s ease;
+}

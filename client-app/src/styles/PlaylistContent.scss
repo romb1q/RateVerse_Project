@@ -1,0 +1,173 @@
+$primary-color: #5941A9;
+$secondary-color: #FFF8F0;
+$accent-color: #010004;
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/Montserrat-Bold.ttf");
+  font-weight: 600;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/Montserrat-Regular.ttf");
+  font-weight: 300;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/Montserrat-Light.ttf");
+  font-weight: 10;
+}
+
+* {
+  font-family: "Montserrat";
+}
+
+.playlist-content {
+    background-color: $accent-color;
+    color: $secondary-color;
+    padding: 20px;
+  
+    &__header {
+      text-align: center;
+      margin-top: 40px;
+      margin-bottom: 40px;
+    }
+  
+    &__title {
+      font-size: 2rem;
+      color: #fff;
+    }
+  
+    &__list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+  }
+  
+  .content-card {
+    display: flex;
+    margin-bottom: 20px;
+    min-width: 1000px;
+    max-width: 1000px;
+    max-height: 260px;
+    background-color: $primary-color;
+    border-radius: 60px;
+    cursor: pointer;
+
+  
+    &__image {
+        background-color: $primary-color;
+      width: 200px;
+      height: auto;
+      object-fit: cover;
+      border-radius: 20px 0 0 20px;
+    }
+  
+    &__info {
+        
+        background-color: $primary-color;
+        border-radius: 30px;
+      padding: 50px;
+      flex: 1;
+    }
+  
+    &__name {
+        background-color: $primary-color;
+
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: $secondary-color;
+    }
+  
+    &__crew,
+    &__date,
+    &__description {
+      background-color: $primary-color;
+      font-size: 12px;
+      margin-bottom: 5px;
+      color: $secondary-color;
+      strong {
+        background-color: $primary-color;
+
+      }
+    }
+    &__remove-button {
+        background-color: $secondary-color;
+        color: $accent-color;
+        margin-top: 50px;
+        width: 95px;
+        &:hover {
+            font-weight: 600;
+            color: $accent-color;
+            background-color: #cc6dd8;
+        }
+    }
+  }
+
+  .underHeader {
+    margin-top: 10px;
+    .backButton {
+        background-color: $accent-color;
+    }
+  }
+  
+  .search {
+    grid-column: 1;
+    grid-row: 1;
+    width: 400px;
+    margin-top: 70px;
+    margin-bottom: 30px;
+    margin-right: 50px;
+
+    p{
+        font-weight: 600;
+    }
+    
+    .dropdown {
+    position: fixed;
+    width: 100%;
+    max-width: 300px;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: $accent-color;
+    border: 1px solid $secondary-color;
+    border-radius: 5px;
+    z-index: 10;
+  }
+  
+  .dropdown li {
+    justify-content: flex-start;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    color: $secondary-color;
+  }
+  
+  
+  .dropdown li img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+  
+//   .dropdown li div p{
+//   }
+  
+  .dropdown li:hover {
+    background-color: $primary-color;
+  }
+  }
+  
+  .search input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    background-color: #faf4e8;
+    color: #000;
+  }
+  
