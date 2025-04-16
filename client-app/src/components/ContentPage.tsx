@@ -273,7 +273,7 @@ const handleWatchList = async () => {
     } catch (err) {
         console.error('Ошибка при обработке лайка:', err);
     } finally {
-        fetchContent(userID);
+        //fetchContent(userID);
     }
 };
 

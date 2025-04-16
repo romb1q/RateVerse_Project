@@ -121,7 +121,7 @@ const Header: React.FC = () => {
                     <Link 
                       className={styles.buttonLink} 
                       to="/likes">
-                        Понравившееся
+                        Лайки
                     </Link>
                   </button>
                   <button className={styles.logoutButton}>
@@ -129,6 +129,13 @@ const Header: React.FC = () => {
                       className={styles.buttonLink} 
                       to="/playlists">
                         Плейлисты
+                    </Link>
+                  </button>
+                  <button className={styles.logoutButton}>
+                    <Link 
+                      className={styles.buttonLink} 
+                      to="/activity">
+                        Активность
                     </Link>
                   </button>
                   {role === 'admin' ? (

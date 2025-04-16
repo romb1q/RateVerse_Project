@@ -15,7 +15,7 @@ const SignUp: React.FC = () => {
     let isValid = true;
     const newErrors = { UserName: '', UserPassword: '' };
 
-    // Имя пользователя: минимум 3 символа, только латинские буквы, без пробелов или цифр.
+    
     if (UserName.length < 3) {
       newErrors.UserName = 'Имя пользователя должно содержать не менее 3 символов';
       isValid = false;
@@ -24,7 +24,7 @@ const SignUp: React.FC = () => {
       isValid = false;
     }
 
-    // Пароль: минимум 6 символов, без пробелов и спецсимволов.
+    
     if (UserPassword.length < 6) {
       newErrors.UserPassword = 'Пароль должен содержать не менее 6 символов';
       isValid = false;

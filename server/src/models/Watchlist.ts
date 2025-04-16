@@ -2,23 +2,24 @@
 
 import { Model, DataTypes, Optional } from 'sequelize';
 import sequelize from '../config/database';
-import { UserAttributes } from './User'; // Импортируем UserAttributes для ссылок
-import { ContentAttributes } from './Content'; // Импортируем ContentAttributes для ссылок
+import { UserAttributes } from './User';
+import { ContentAttributes } from './Content';
+import Content from './Content';
 
-// Определяем атрибуты WatchList
 export interface WatchListAttributes {
   WatchListID: number;
   WatchListUserID: number;
   WatchListContentID: number;
+  WatchListDate: Date;
 }
 
-// Определяем тип для создания записи в WatchList, где WatchListID опционален
-export interface WatchListCreationAttributes extends Optional<WatchListAttributes, 'WatchListID'> {}
+export interface WatchListCreationAttributes extends Optional<WatchListAttributes, 'WatchListID' | 'WatchListDate'> {}
 
 class WatchList extends Model<WatchListAttributes, WatchListCreationAttributes> implements WatchListAttributes {
   public WatchListID!: number;
   public WatchListUserID!: number;
   public WatchListContentID!: number;
+  public WatchListDate!: Date;
 }
 
 WatchList.init(
@@ -32,7 +33,7 @@ WatchList.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'Users', // Название модели для связи
+        model: 'Users',
         key: 'UserID',
       },
     },
@@ -40,17 +41,27 @@ WatchList.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'Contents', // Название модели для связи
+        model: 'Contents',
         key: 'ContentID',
       },
+    },
+    WatchListDate: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
     },
   },
   {
     sequelize,
     modelName: 'WatchList',
-    tableName: 'WatchLists', // Используем множественное число для имени таблицы
-    timestamps: false, // Отключаем временные метки
+    tableName: 'WatchLists',
+    timestamps: false,
   }
 );
+
+WatchList.belongsTo(Content, {
+  foreignKey: 'WatchListContentID',
+  as: 'Content',
+});
 
 export default WatchList;

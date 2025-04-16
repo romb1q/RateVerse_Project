@@ -74,7 +74,7 @@ const SerialsPage: React.FC = () => {
   
       setMovies(serialsData);
     } catch (error) {
-      console.error('Ошибка при загрузке фильмов:', error);
+      console.error('Ошибка при загрузке контента:', error);
     }
   };
   
@@ -146,7 +146,7 @@ const SerialsPage: React.FC = () => {
         <input
           type="text"
           className={styles.searchInput}
-          placeholder="Поиск по фильмам..."
+          placeholder="Поиск по сериалам..."
           value={searchQuery}
           onChange={handleSearch}
         />

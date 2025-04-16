@@ -18,6 +18,8 @@ const ContentAdminPanel: React.FC = () => {
   const [editingContentId, setEditingContentId] = useState<number | null>(null);
   const [contentList, setContentList] = useState<Content[]>([]);
   const [filter, setFilter] = useState({ type: 'All' });
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
   const [newContent, setNewContent] = useState({
     ContentType: 'movie',
     ContentName: '',
@@ -118,6 +120,40 @@ const ContentAdminPanel: React.FC = () => {
   const openEditForm = (id: number) => setEditingContentId(id);
   const closeEditForm = () => setEditingContentId(null);
 
+
+  // Пагинация
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredContents.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredContents.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+  
+  const renderPageNumbers = () => {
+    const pageNumbers = [];
+  
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumbers.push(
+        <button
+          key={i}
+          onClick={() => handlePageChange(i)}
+          style={{
+            margin: "0 5px",
+            padding: "5px 10px",
+            backgroundColor: i === currentPage ? '#5941A9' : '#cccc',
+          }}
+        >
+          {i}
+        </button>
+      );
+    }
+  
+    return <div style={{ marginTop: '10px',  display: 'flex'}}>{pageNumbers}</div>;
+  };
+  
+
   return (
     <div className={styles.contentPanel}>
       <div className="content-list">
@@ -152,7 +188,7 @@ const ContentAdminPanel: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredContents.map((content) => (
+            {currentItems.map((content) => (
               <tr key={content.ContentID}>
                 <td>{content.ContentName}</td>
                 <td>{content.ContentType}</td>
@@ -170,16 +206,19 @@ const ContentAdminPanel: React.FC = () => {
                 <td>
                   <button onClick={() => handleDeleteContent(content.ContentID)}>Delete</button>
                 </td>
-                <td><button onClick={() => openEditForm(content.ContentID)}>Edit</button></td>
+                <td>
+                  <button onClick={() => openEditForm(content.ContentID)}>Edit</button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
+        {renderPageNumbers()}
       </div>
 
       <div className="add-content-form">
         <h2>Add New Content</h2>
-        <form onSubmit={handleAddContent}>
+        <form onSubmit={handleAddContent} style={{ width: '500px', }}>
           <select name="ContentType" value={newContent.ContentType} onChange={handleInputChange} required>
             <option value="movie">movie</option>
             <option value="serial">serial</option>

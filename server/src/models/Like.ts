@@ -2,10 +2,10 @@
 
 import { Model, DataTypes, Optional } from 'sequelize';
 import sequelize from '../config/database';
-import { UserAttributes } from './User'; // Импортируем UserAttributes для ссылок
-import { ContentAttributes } from './Content'; // Импортируем ContentAttributes для ссылок
+import { UserAttributes } from './User';
+import { ContentAttributes } from './Content';
+import Content from './Content';
 
-// Определяем атрибуты лайка
 export interface LikeAttributes {
   LikeID: number;
   LikeUserID: number;
@@ -13,7 +13,7 @@ export interface LikeAttributes {
   LikeDate: Date;
 }
 
-// Определяем тип для создания лайка, где LikeID опционален
+
 export interface LikeCreationAttributes extends Optional<LikeAttributes, 'LikeID'> {}
 
 class Like extends Model<LikeAttributes, LikeCreationAttributes> implements LikeAttributes {
@@ -34,7 +34,7 @@ Like.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'Users', // Название модели для связи
+        model: 'Users',
         key: 'UserID',
       },
     },
@@ -42,7 +42,7 @@ Like.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'Contents', // Название модели для связи
+        model: 'Contents',
         key: 'ContentID',
       },
     },
@@ -54,9 +54,14 @@ Like.init(
   {
     sequelize,
     modelName: 'Like',
-    tableName: 'Likes', // Лучше использовать множественное число для имени таблицы
-    timestamps: false, // Если нет полей createdAt/updatedAt в таблице
+    tableName: 'Likes',
+    timestamps: false,
   }
 );
+
+Like.belongsTo(Content, {
+  foreignKey: 'LikeContentID',
+  as: 'Content',
+});
 
 export default Like;

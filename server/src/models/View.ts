@@ -2,10 +2,12 @@
 
 import { Model, DataTypes, Optional } from 'sequelize';
 import sequelize from '../config/database';
-import { UserAttributes } from './User'; // Импортируем UserAttributes для ссылок
-import { ContentAttributes } from './Content'; // Импортируем ContentAttributes для ссылок
+import { UserAttributes } from './User';
+import { ContentAttributes } from './Content';
+import Content from './Content';
 
-// Определяем атрибуты просмотра
+
+
 export interface ViewAttributes {
   ViewID: number;
   ViewUserID: number;
@@ -13,7 +15,7 @@ export interface ViewAttributes {
   ViewDate: Date;
 }
 
-// Определяем тип для создания просмотра, где ViewID опционален
+
 export interface ViewCreationAttributes extends Optional<ViewAttributes, 'ViewID'> {}
 
 class View extends Model<ViewAttributes, ViewCreationAttributes> implements ViewAttributes {
@@ -34,7 +36,7 @@ View.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'Users', // Название модели для связи
+        model: 'Users', 
         key: 'UserID',
       },
     },
@@ -42,7 +44,7 @@ View.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'Contents', // Название модели для связи
+        model: 'Contents',
         key: 'ContentID',
       },
     },
@@ -54,9 +56,14 @@ View.init(
   {
     sequelize,
     modelName: 'View',
-    tableName: 'Views', // Используем множественное число для имени таблицы
-    timestamps: false, // Если в таблице нет полей createdAt/updatedAt
+    tableName: 'Views',
+    timestamps: false,
   }
 );
+
+View.belongsTo(Content, {
+  foreignKey: 'ViewContentID',
+  as: 'Content',
+});
 
 export default View;

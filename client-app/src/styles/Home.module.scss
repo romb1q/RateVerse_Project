@@ -225,7 +225,6 @@ $accent-color: #010004;
     backdrop-filter: blur(2px); // размытие для лучшего эффекта
     transition: background 0.3s ease;
 
-    
     &:hover {
       background: rgba(0, 0, 0, 0.7);
       p{
@@ -274,4 +273,57 @@ $accent-color: #010004;
   &:hover {
     color: $primary-color; 
   }
+}
+
+
+.analyticsRecommendations {
+  display:flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 80px;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 300px;
+  height: 160px;
+  //background: linear-gradient(135deg, #48397a, $primary-color);
+  color: $secondary-color;
+  border: solid;
+  border-radius: 16px;
+  border-width: 1px;
+  border-color: #5941A9;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(59, 13, 90, 0.3);
+  }
+  .overlay {
+    background: none;
+
+    h3 {
+      background: none;
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    p {
+      background: none;
+      font-size: 14px;
+      color: #ddd;
+    }
+
+    svg {
+      background: none;
+    }
+  }
+
 }

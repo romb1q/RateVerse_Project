@@ -75,7 +75,7 @@ const GamesPage: React.FC = () => {
   
       setMovies(gamesData);
     } catch (error) {
-      console.error('Ошибка при загрузке фильмов:', error);
+      console.error('Ошибка при загрузке контента:', error);
     }
   };
   
@@ -145,7 +145,7 @@ const GamesPage: React.FC = () => {
         <input
           type="text"
           className={styles.searchInput}
-          placeholder="Поиск по фильмам..."
+          placeholder="Поиск по играм..."
           value={searchQuery}
           onChange={handleSearch}
         />

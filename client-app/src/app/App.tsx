@@ -19,6 +19,7 @@ import PlaylistCreator from '../components/PlaylistCreator';
 import PlaylistContent from '../components/PlaylistContent';
 import WelcomeScreen from '../components/WelcomeScreen';
 import LikesPage from '../components/LikesPage';
+import Activity from '../components/ActivityComponent';
 
 
 
@@ -47,6 +48,7 @@ const App: React.FC = () => {
         <Route path="/playlists/creation" element={<PlaylistCreator />} />
         <Route path="/playlists/:playlistID/content" element={<PlaylistContent/>} />
         <Route path="/likes" element={<LikesPage/>} />
+        <Route path="/activity" element={<Activity/>} />
       </Routes>
       <ToastContainer style={{background:"red"}} position="top-right" autoClose={3000} hideProgressBar={false} />
     </BrowserRouter>

@@ -1,0 +1,119 @@
+$primary-color: #5941A9;
+$secondary-color: #FFF8F0;
+$accent-color: #010004;
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/Montserrat-Bold.ttf");
+  font-weight: 600;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/Montserrat-Regular.ttf");
+  font-weight: 300;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/Montserrat-Light.ttf");
+  font-weight: 10;
+}
+
+* {
+  font-family: "Montserrat";
+}
+
+
+.activityPage {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .feed {
+    flex: 1;
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+  
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+  }
+  
+  .feedItem {
+    background: none;
+    border: solid 1px #363533;
+    border-radius: 12px;
+    width: 600px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    color: $secondary-color;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  
+    .label {
+      font-size: 0.9rem;
+      color: #aaa;
+      margin-bottom: 0.5rem;
+    }
+  
+    .content {
+      width: 350px;
+      height: 80px;
+      display: Flex;
+      flex-direction: column;
+  
+      .imageDiv {
+        grid-column: 1;
+        .image {
+          height: 80px;
+          width: 50px;
+        }
+      }
+      .title {
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
+  
+      .date {
+        font-size: 0.8rem;
+        color: #ccc;
+        margin-top: 0.25rem;
+      }
+    }
+  }
+  .pagination {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    gap: 6px;
+  }
+  
+  .pageButton {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #f1f5f9;
+    color: #1e3a8a;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .pageButton:hover:not(:disabled) {
+    background-color: #dbeafe;
+  }
+  
+  .pageButton:disabled {
+    cursor: default;
+    opacity: 0.5;
+  }
+  
+  .active {
+    background-color: $primary-color;
+    color: #fff;
+    font-weight: bold;
+  }
+  

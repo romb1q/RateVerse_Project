@@ -8,7 +8,7 @@
     "define": {
       "timestamps": false
     },
-    "url": "process.env.DATABASE_URL"
+    "url": "postgres://postgres:123@localhost:5432/CourseDB"
   },
   "test": {
     "username": "postgres",

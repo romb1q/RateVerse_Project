@@ -4,7 +4,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.addColumn('Reviews', 'ReviewRating', {
       type: Sequelize.INTEGER,
-      allowNull: true, // Рейтинг может быть пустым
+      allowNull: true,
     });
   },
 
