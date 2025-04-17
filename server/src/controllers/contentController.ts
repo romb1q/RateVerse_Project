@@ -4,9 +4,6 @@ import Content from '../models/Content';
 import fs from 'fs';
 import path from 'path';
 
-/**
- * Получение всех данных контента.
- */
 export const getAllContentsController = async (req: Request, res: Response) => {
   try {
     const contents = await getAllContents(Content);
@@ -17,13 +14,9 @@ export const getAllContentsController = async (req: Request, res: Response) => {
   }
 };
 
-/**
- * Получить контент по ID.
- */
 export const getContentByIdController = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
 
-  // Проверяем, что ID является числом.
   if (isNaN(Number(id))) {
     res.status(400).json({ error: 'Некорректный ID контента' });
     return;
@@ -44,14 +37,10 @@ export const getContentByIdController = async (req: Request, res: Response): Pro
   }
 };
 
-/**
- * Создание нового контента.
- */
 export const createContentController = async (req: Request, res: Response) => {
   try {
     const { ContentType, ContentName, ContentDescription, ContentDate, ContentGenre, ContentCrew } = req.body;
 
-    // Создаём запись в базе данных
     const newContent = await Content.create({
       ContentType,
       ContentName,
@@ -62,12 +51,11 @@ export const createContentController = async (req: Request, res: Response) => {
       ContentCrew: ContentCrew || '',
     });
 
-    const contentId = newContent.ContentID; // Получаем ID созданной записи
+    const contentId = newContent.ContentID;
     console.log('Созданный Content ID:', contentId);
 
     console.log('Тело запроса:', req.body);
     console.log('Файл запроса:', req.file);
-    // Проверяем, загружен ли файл
     if (req.file) {
       const fileExtension = path.extname(req.file.originalname); // Получаем расширение файла
       const newFileName = `${contentId}${fileExtension}`; // Имя файла = ID + расширение
@@ -96,13 +84,9 @@ export const createContentController = async (req: Request, res: Response) => {
   }
 };
 
-/**
- * Удаление контента по ID.
- */
 export const deleteContentController = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
 
-  // Проверка корректности ID
   if (isNaN(Number(id))) {
     res.status(400).json({ error: 'Invalid Content ID' });
     return;
@@ -128,7 +112,6 @@ export const deleteContentController = async (req: Request, res: Response): Prom
       }
     }
 
-    // Удаляем запись из базы данных
     try {
       await content.destroy();
       res.status(200).json({ message: 'Content deleted successfully' });
@@ -147,14 +130,12 @@ export const updateContentController = async (req: Request, res: Response): Prom
   const { ContentType, ContentName, ContentDescription, ContentDate, ContentGenre, ContentCrew } = req.body;
 
   try {
-    // Найти существующий контент
     const content = await Content.findByPk(id);
     if (!content) {
       res.status(404).json({ error: 'Content not found' });
       return;
     }
 
-    // Обновление данных
     content.ContentType = ContentType || content.ContentType;
     content.ContentName = ContentName || content.ContentName;
     content.ContentDescription = ContentDescription || content.ContentDescription;

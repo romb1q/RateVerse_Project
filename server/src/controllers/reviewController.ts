@@ -15,7 +15,6 @@ class ReviewController {
     try {
       const contentId = parseInt(req.params.contentId, 10);
 
-      // Проверяем роль пользователя через req.user.UserRole
       const isAdmin = req.user?.UserRole === 'admin';
 
       const reviews = await ReviewService.getReviewsByContent(contentId, isAdmin);
@@ -104,13 +103,11 @@ class ReviewController {
     try {
       const { reviewId } = req.params;
   
-      // Проверяем, что пользователь является администратором
       if (req.user?.UserRole !== 'admin') {
         res.status(403).json({ error: 'Недостаточно прав' });
         return;
       }
   
-      // Обновляем статус отзыва
       const updatedReview = await ReviewService.updateReviewStatus(Number(reviewId), 'blocked');
       res.status(200).json(updatedReview);
     } catch (error) {
@@ -123,13 +120,11 @@ class ReviewController {
   try {
     const { reviewId } = req.params;
 
-    // Проверяем, что пользователь является администратором
     if (req.user?.UserRole !== 'admin') {
       res.status(403).json({ error: 'Недостаточно прав' });
       return;
     }
 
-    // Обновляем статус отзыва
     const updatedReview = await ReviewService.updateReviewStatus(Number(reviewId), 'available');
     res.status(200).json(updatedReview);
   } catch (error) {

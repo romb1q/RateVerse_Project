@@ -39,9 +39,15 @@ $accent-color: #010004;
     flex-direction: row;
     align-items: center;
     .logo {
+      cursor: pointer;
         display: flex;
     align-items: center;
     gap: 10px;
+    &:hover {
+      p {
+        color: $primary-color;
+      }
+    }
     }
    
   .logo p {

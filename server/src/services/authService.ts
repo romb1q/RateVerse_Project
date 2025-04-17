@@ -5,7 +5,7 @@ import User from '../models/User';
 const JWT_SECRET = process.env.JWT_SECRET || 'jwt_secret';
 
 export const getUserRole = async (token: string): Promise<string> => { 
-  console.log('ТОКЕН: ', token); // Указываем тип token
+  console.log('ТОКЕН: ', token);
     if (!token) throw new Error('Токен не предоставлен');
   
     const decoded = jwt.verify(token, JWT_SECRET) as jwt.JwtPayload;  // Явное приведение к типу jwt.JwtPayload
@@ -19,7 +19,7 @@ export const getUserRole = async (token: string): Promise<string> => {
     console.log("role", user.UserRole);
     return user.UserRole;
   };
-  export const getUserName = async (token: string): Promise<string> => {  // Указываем тип token
+  export const getUserName = async (token: string): Promise<string> => {  //тип token
     if (!token) throw new Error('Токен не предоставлен');
   
     const decoded = jwt.verify(token, JWT_SECRET) as jwt.JwtPayload;  // Явное приведение к типу jwt.JwtPayload
@@ -52,6 +52,6 @@ export const getUserRole = async (token: string): Promise<string> => {
     const user = await User.findByPk(userId);
     if (!user) throw new Error('Пользователь не найден');
   
-    return user.UserStatus; // Возвращаем статус пользователя
+    return user.UserStatus; //статус пользователя
   };
   

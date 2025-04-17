@@ -44,7 +44,6 @@ const GamesPage: React.FC = () => {
       const response = await axios.get<APIContent[]>('http://localhost:5000/api/contents');
       const gameContents = response.data.filter((item) => item.ContentType === 'game');
   
-      // массив фильмов с запросами рейтингов
       const gamesData = await Promise.all(
         gameContents.map(async (item) => {
           let rating = 0;
@@ -173,7 +172,6 @@ const GamesPage: React.FC = () => {
     </ul>
   </div>
 
-        {/* Фильтрация года */}
         <div className={styles.dropdown}>
           <button className={styles.dropdownButton}>
             {filter.year}
@@ -191,7 +189,6 @@ const GamesPage: React.FC = () => {
             ))}
           </ul>
         </div>
-        {/* Сортировка */}
         <div className={styles.dropdown}>
           <button className={styles.dropdownButton}>
             Сортировка: {sort} {sortDirection === 'asc' ? '↑' : '↓'}

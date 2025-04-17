@@ -44,7 +44,7 @@ PlaylistContent.init(
 
 PlaylistContent.belongsTo(Content, {
   foreignKey: 'ContentID',
-  as: 'contentDetails', // Алиас для использования в include
+  as: 'contentDetails',
 });
 
 export default PlaylistContent;

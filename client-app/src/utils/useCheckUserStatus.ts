@@ -10,7 +10,7 @@ const useCheckUserStatus = () => {
       try {
         const token = localStorage.getItem('accessToken');
         if (!token) {
-          navigate('/login'); // Если нет токена, отправляем на логин
+          navigate('/login');
           return;
         }
 
@@ -19,11 +19,11 @@ const useCheckUserStatus = () => {
         });
 
         if (response.data.status === 'blocked') {
-          navigate('/blocked'); // Если статус "blocked", отправляем на страницу ошибки
+          navigate('/blocked');
         }
       } catch (error) {
         console.error('Ошибка проверки статуса пользователя:', error);
-        navigate('/login'); // Если ошибка, отправляем на логин
+        navigate('/login');
       }
     };
 

@@ -9,12 +9,12 @@ $accent-color: #010004;
   
   .star {
     font-size: 24px;
-    color: #7e7e7e; /* Цвет звезды по умолчанию */
+    color: #7e7e7e;
     transition: color 0.2s ease;
   
     &:hover,
     &.filled {
-      color: $primary-color; /* Цвет заполненной звезды */
+      color: $primary-color;
     }
   }
   

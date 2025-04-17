@@ -2,7 +2,6 @@ import { Model, DataTypes, Optional, Association } from 'sequelize';
 import sequelize from '../config/database';
 import User from './User';
 
-// Определяем атрибуты Review
 export interface ReviewAttributes {
   ReviewID: number;
   ReviewUserID: number;
@@ -13,7 +12,6 @@ export interface ReviewAttributes {
   ReviewStatus: string;
 }
 
-// Тип для создания Review, где ReviewID опционален
 export interface ReviewCreationAttributes extends Optional<ReviewAttributes, 'ReviewID'> {}
 
 class Review extends Model<ReviewAttributes, ReviewCreationAttributes> implements ReviewAttributes {
@@ -25,16 +23,13 @@ class Review extends Model<ReviewAttributes, ReviewCreationAttributes> implement
   public ReviewDate!: Date;
   public ReviewStatus!: string;
 
-  // Добавляем ассоциацию
   public readonly User?: User;
 
-  // Определяем статическую ассоциацию
   public static associations: {
     User: Association<Review, User>;
   };
 }
 
-// Инициализация модели
 Review.init(
   {
     ReviewID: {
@@ -46,7 +41,7 @@ Review.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'Users', // Таблица пользователей
+        model: 'Users',
         key: 'UserID',
       },
     },
@@ -54,7 +49,7 @@ Review.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'Contents', // Таблица контента
+        model: 'Contents',
         key: 'ContentID',
       },
     },
@@ -85,7 +80,6 @@ Review.init(
   }
 );
 
-// Устанавливаем связь с User
 Review.belongsTo(User, { foreignKey: 'ReviewUserID', as: 'User' });
 
 export default Review;

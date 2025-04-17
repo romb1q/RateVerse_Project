@@ -6,14 +6,14 @@ class ReviewService {
   async isReviewOwner(reviewId: number, userId: number) {
     const review = await Review.findByPk(reviewId);
     if (!review) throw new Error('Отзыв не найден');
-    return review.ReviewUserID === userId; // Проверяем, совпадает ли ID пользователя
+    return review.ReviewUserID === userId;
   }
 
   async getReviewsByContent(contentId: number, isAdmin: boolean) {
     try {
       const whereClause = isAdmin
-        ? { ReviewContentID: contentId } // Все отзывы для администратора
-        : { ReviewContentID: contentId, ReviewStatus: 'available' }; // Только доступные для пользователей
+        ? { ReviewContentID: contentId } 
+        : { ReviewContentID: contentId, ReviewStatus: 'available' }; 
 
       return await Review.findAll({ where: whereClause });
     } catch (error) {
@@ -22,7 +22,6 @@ class ReviewService {
     }
   }
 
-  // Создать новый отзыв
   async createReview(userId: number, contentId: number, text: string, rating: number | null) {
     return await Review.create({
       ReviewUserID: userId,
@@ -34,7 +33,6 @@ class ReviewService {
     });
   }
 
-  // Обновить отзыв (текст или статус)
   async updateReview(reviewId: number, userId: number, text?: string, status?: string, rating?: number | null) {
     const isOwner = await this.isReviewOwner(reviewId, userId);
     if (!isOwner) throw new Error('Доступ запрещён');
@@ -44,13 +42,12 @@ class ReviewService {
 
     if (text) review.ReviewText = text;
     if (status) review.ReviewStatus = status;
-    if (rating !== undefined) review.ReviewRating = rating; // Обновляем рейтинг
+    if (rating !== undefined) review.ReviewRating = rating;
 
     await review.save();
     return review;
   }
 
-  // Обновить статус отзыва
 async updateReviewStatus(reviewId: number, status: string): Promise<Review> {
   const review = await Review.findByPk(reviewId);
 
@@ -65,7 +62,6 @@ async updateReviewStatus(reviewId: number, status: string): Promise<Review> {
 }
 
 
-  // Удалить отзыв
   async deleteReview(reviewId: number, userId: number) {
     const isOwner = await this.isReviewOwner(reviewId, userId);
     
@@ -77,14 +73,13 @@ async updateReviewStatus(reviewId: number, status: string): Promise<Review> {
     await review.destroy();
   }
 
-  // Получить отзывы с деталями пользователя
   async getUserNameByReviewId(reviewId: number): Promise<string | null> {
     const review = await Review.findOne({
       where: { ReviewID: reviewId },
       include: [
         {
           model: User,
-          as: 'User', // Указываем alias, если использовали его в `belongsTo`
+          as: 'User',
           attributes: ['UserName'],
         },
       ],
@@ -98,7 +93,7 @@ async updateReviewStatus(reviewId: number, status: string): Promise<Review> {
       const review = await Review.findByPk(id);
   
       if (!review) {
-        return null; // Отзыв не найден
+        return null;
       }
   
       review.ReviewStatus = 'blocked';
@@ -115,11 +110,11 @@ async updateReviewStatus(reviewId: number, status: string): Promise<Review> {
       const review = await Review.findByPk(id);
   
       if (!review) {
-        return false; // Отзыв не найден
+        return false;
       }
   
       await review.destroy();
-      return true; // Отзыв удален
+      return true;
     } catch (error) {
       console.error('Ошибка удаления отзыва:', error);
       throw error;

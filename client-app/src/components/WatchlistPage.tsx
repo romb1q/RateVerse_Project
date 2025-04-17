@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from '../styles/Watchlist.module.scss';
 import { getUserId } from '../utils/fetchUserRole';
 
-// Интерфейс для данных контента
 interface WatchlistItem {
   WatchListID: number;
   WatchListContentID: number;
@@ -25,7 +24,6 @@ const WatchlistPage: React.FC = () => {
     navigate(-1);
   };
 
-  // Получение ID пользователя
   const fetchUserId = async () => {
     try {
       const ID = await getUserId();
@@ -36,7 +34,6 @@ const WatchlistPage: React.FC = () => {
     }
   };
 
-  // Получение базового списка
   const fetchWatchlist = async (userID: string | null) => {
     try {
       setLoading(true);
@@ -46,7 +43,6 @@ const WatchlistPage: React.FC = () => {
       console.log('Базовый список:', response.data);
       const baseWatchlist = response.data;
 
-      // Получение подробной информации для каждого контента
       const detailedWatchlist = await Promise.all(
         baseWatchlist.map(async (item: WatchlistItem) => {
           try {
@@ -76,7 +72,6 @@ const WatchlistPage: React.FC = () => {
     }
   };
 
-  // Удаление контента из списка
   const handleRemoveFromWatchlist = async (contentID: number) => {
     try {
       await axios.delete(`http://localhost:5000/api/watchlist`, {
@@ -89,12 +84,10 @@ const WatchlistPage: React.FC = () => {
     }
   };
 
-  // Загрузка ID пользователя при монтировании
   useEffect(() => {
     fetchUserId();
   }, []);
 
-  // Загрузка списка при изменении userID
   useEffect(() => {
     if (userID) {
       fetchWatchlist(userID);

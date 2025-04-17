@@ -60,7 +60,6 @@ $accent-color: #010004;
     gap: 20px;
   }
 
-  /* Левый блок: изображение */
   .imageContainer {
     flex: 1;
     max-width: 300px;
@@ -75,7 +74,6 @@ $accent-color: #010004;
     }
   }
 
-  /* Центральный блок: информация */
   .infoContainer {
     flex: 2;
     padding: 10px;
@@ -87,7 +85,6 @@ $accent-color: #010004;
     }
   }
 
-  /* Правый блок: кнопки и рейтинг */
   .sidebar {
     flex: 1;
     max-width: 300px;
@@ -124,7 +121,6 @@ $accent-color: #010004;
     }
   }
 
-  /* Блок отзыва */
   .reviewContainer {
     width: 100%;
     margin-top: 20px;
@@ -140,9 +136,9 @@ $accent-color: #010004;
   display: flex;
   margin-left: 5px;
   margin-right: 5px;
-  flex-direction: column; /* Вертикальное расположение */
-  align-items: center; /* Центрирование по горизонтали */
-  justify-content: center; /* Центрирование содержимого */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .actionButton {
@@ -165,7 +161,6 @@ $accent-color: #010004;
   display: flex;
   justify-content: space-between;
 }
-/* Стиль для кнопки добавления в плейлист */
 .addToPlaylistButton {
   padding: 10px;
   background-color: #5941A9;
@@ -175,7 +170,6 @@ $accent-color: #010004;
   border-radius: 5px;
 }
 
-/* Стиль для модального окна */
 .modal {
   background-color: white;
   padding: 20px;
@@ -208,7 +202,6 @@ button {
   border-radius: 5px;
   cursor: pointer;
 }
-/* Стиль для кнопки добавления в плейлист */
 .addToPlaylistButton {
   padding: 10px;
   background-color: $accent-color;

@@ -5,7 +5,6 @@ import Header from "./Header";
 import { useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 
-// Интерфейс для контента
 interface Content {
   ContentID: string;
   ContentName: string;
@@ -29,7 +28,6 @@ const PlaylistCreator: React.FC = () => {
     navigate(-1);
   };
 
-  // Функция поиска контента
   const searchContent = async (query: string) => {
     if (!query.trim()) {
       setSearchResults([]);
@@ -54,7 +52,6 @@ const PlaylistCreator: React.FC = () => {
     }
   };
 
-  // Добавление контента в список
   const addContent = (content: Content) => {
     if (!selectedContent.some((item) => item.ContentID === content.ContentID)) {
       setSelectedContent([...selectedContent, content]);
@@ -63,12 +60,10 @@ const PlaylistCreator: React.FC = () => {
     setSearchQuery("");
   };
 
-  // Удаление контента из списка
   const removeContent = (contentID: string) => {
     setSelectedContent(selectedContent.filter((item) => item.ContentID !== contentID));
   };
 
-  // Создание плейлиста
   const createPlaylist = async () => {
     if (!name.trim()) {
       alert("Введите название плейлиста!");
@@ -76,14 +71,12 @@ const PlaylistCreator: React.FC = () => {
     }
   
     try {
-      // Извлекаем токен из локального хранилища
       const token = localStorage.getItem("accessToken");
       if (!token) {
         alert("Вы не авторизованы!");
         return;
       }
   
-      // Создание плейлиста
       const playlistResponse = await axios.post(
         "http://localhost:5000/api/playlists",
         {
@@ -99,14 +92,13 @@ const PlaylistCreator: React.FC = () => {
   
       const playlistID = playlistResponse.data.PlaylistID;
   
-      // Добавление контента в плейлист
       for (const content of selectedContent) {
         await axios.post(
           `http://localhost:5000/api/playlists/content/${playlistID}/${content.ContentID}`,
           {},
           {
             headers: {
-              Authorization: `Bearer ${token}`, // Передаем токен для каждого запроса
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -125,7 +117,6 @@ const PlaylistCreator: React.FC = () => {
   };
   
 
-  // Обработчик ввода текста в поисковую строку
   const handleSearchInput = (query: string) => {
     setSearchQuery(query);
     if (query.trim().length > 0) {
@@ -149,7 +140,6 @@ const PlaylistCreator: React.FC = () => {
       <h2 className={styles.hTitle}>Создать плейлист</h2>
 
       <div className={styles.form}>
-        {/* Поле ввода названия */}
         <div className={styles.inputName}>
           <input
           type="text"
@@ -160,14 +150,12 @@ const PlaylistCreator: React.FC = () => {
         </div>
         
 
-        {/* Поле ввода описания */}
         <textarea
           placeholder="Описание плейлиста"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
 
-        {/* Поле поиска контента */}
         <div className={styles.search}>
           <input
             type="text"
@@ -175,7 +163,7 @@ const PlaylistCreator: React.FC = () => {
             value={searchQuery}
             onChange={(e) => handleSearchInput(e.target.value)}
             onFocus={() => setIsDropdownVisible(true)}
-            onBlur={() => setTimeout(() => setIsDropdownVisible(false), 200)} // Задержка для обработки кликов
+            onBlur={() => setTimeout(() => setIsDropdownVisible(false), 200)} 
           />
           {isDropdownVisible && (
             <ul className={styles.dropdown}>
@@ -204,7 +192,6 @@ const PlaylistCreator: React.FC = () => {
           )}
         </div>
 
-        {/* Выбранный контент */}
         <div className={styles.selected}>
           <h3>Выбранный контент:</h3>
           <ul>
@@ -219,7 +206,6 @@ const PlaylistCreator: React.FC = () => {
           </ul>
         </div>
 
-        {/* Кнопка для создания плейлиста */}
         <button className={styles.createButton} onClick={createPlaylist}>
           Создать плейлист
         </button>

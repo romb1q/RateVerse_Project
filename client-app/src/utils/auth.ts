@@ -6,27 +6,23 @@ interface Tokens {
   accessToken: string;
 }
 
-// Получение accessToken из localStorage
 export const getAccessToken = (): string | null => {
   return localStorage.getItem('accessToken');
 };
 
-// Сохранение accessToken в localStorage
 export const setAccessToken = (accessToken: string): void => {
   localStorage.setItem('accessToken', accessToken);
 };
 
-// Очистка accessToken из localStorage
 export const clearAccessToken = (): void => {
   localStorage.removeItem('accessToken');
 };
 
-// Запрос на обновление accessToken с использованием refreshToken из куки
 export const refreshAccessToken = async (): Promise<string | null> => {
   try {
     const response = await fetch(`${API_URL}/refresh-token`, {
       method: 'POST',
-      credentials: 'include', // для отправки refresh-токена, который хранится в куки
+      credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
     });
 
@@ -35,7 +31,7 @@ export const refreshAccessToken = async (): Promise<string | null> => {
       setAccessToken(data.accessToken);
       return data.accessToken;
     } else {
-      clearAccessToken(); // Очистка accessToken при ошибке обновления
+      clearAccessToken(); 
       throw new Error('Unable to refresh access token');
     }
   } catch (error) {
@@ -44,7 +40,6 @@ export const refreshAccessToken = async (): Promise<string | null> => {
   }
 };
 
-// Универсальный fetch запрос с автоматическим обновлением токена при необходимости
 export const fetchWithAuth = async (
   url: string,
   options: RequestInit = {}
@@ -53,7 +48,7 @@ export const fetchWithAuth = async (
 
   const headers = {
     ...options.headers,
-    ...(token ? { 'Authorization': `Bearer ${token}` } : {}), // Добавляем Authorization только если токен есть
+    ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
   };
 
   const response = await fetch(url, {
@@ -76,7 +71,6 @@ export const fetchWithAuth = async (
       }
     }
   }
-  // Если токен истёк, пробуем обновить и повторить запрос
   if (response.status === 401) {
     token = await refreshAccessToken();
     if (token) {
@@ -98,13 +92,13 @@ export const logout = async (): Promise<void> => {
   try {
     await fetch(`${API_URL}/logout`, {
       method: 'POST',
-      credentials: 'include', // Для отправки refresh-токена в куки
+      credentials: 'include',
     });
   } catch (error) {
     console.error('Logout failed:', error);
   } finally {
-    clearAccessToken(); // Очищаем access-токен из localStorage
-    window.location.href = '/login'; // Перенаправляем на страницу входа или домашнюю
+    clearAccessToken();
+    window.location.href = '/login'; 
   }
 };
 

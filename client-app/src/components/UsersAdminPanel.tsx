@@ -13,7 +13,6 @@ const UsersAdminPanel: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Настройка axios с токеном
   const apiClient = axios.create({
     baseURL: 'http://localhost:5000/api',
   });
@@ -26,7 +25,6 @@ const UsersAdminPanel: React.FC = () => {
     return config;
   });
 
-  // Получение списка пользователей
   const fetchUsers = async () => {
     setLoading(true);
     setError(null);
@@ -41,12 +39,11 @@ const UsersAdminPanel: React.FC = () => {
     }
   };
 
-  // Обновление статуса пользователя
   const updateUserStatus = async (userId: number, newStatus: string) => {
     try {
       await apiClient.put(`/users/${userId}`, { UserStatus: newStatus });
       alert(`Статус пользователя успешно обновлён на ${newStatus}`);
-      fetchUsers(); // Обновляем список
+      fetchUsers();
     } catch (err) {
       console.error('Ошибка при обновлении статуса пользователя:', err);
       alert('Не удалось обновить статус пользователя.');

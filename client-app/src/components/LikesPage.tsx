@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from '../styles/Watchlist.module.scss';
 import { getUserId } from '../utils/fetchUserRole';
 
-// Интерфейс для данных контента
 interface LikeItem {
   LikeID: number;
   LikeContentID: number;
@@ -25,7 +24,6 @@ const LikesPage: React.FC = () => {
     navigate(-1);
   };
 
-  // Получение ID пользователя
   const fetchUserId = async () => {
     try {
       const ID = await getUserId();
@@ -36,7 +34,6 @@ const LikesPage: React.FC = () => {
     }
   };
 
-  // Получение списка
   const fetchLike = async (userID: string | null) => {
     try {
       setLoading(true);
@@ -75,7 +72,6 @@ const LikesPage: React.FC = () => {
     }
   };
 
-  // Удаление контента из списка
   const handleRemoveFromLike = async (contentID: number) => {
     try {
       await axios.delete(`http://localhost:5000/api/like`, {
@@ -88,12 +84,10 @@ const LikesPage: React.FC = () => {
     }
   };
 
-  // Загрузка ID пользователя при монтировании
   useEffect(() => {
     fetchUserId();
   }, []);
 
-  // Загрузка списка при изменении userID
   useEffect(() => {
     if (userID) {
       fetchLike(userID);

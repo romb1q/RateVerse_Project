@@ -2,16 +2,14 @@ import { Model, DataTypes, Optional } from 'sequelize';
 import sequelize from '../config/database';
 import PlaylistContent from './PlaylistContent';
 
-// Атрибуты плейлиста
 export interface PlaylistAttributes {
   PlaylistID: number;
   PlaylistUserID: number;
-  PlaylistName: string; // Название плейлиста
-  PlaylistDescription?: string; // Описание плейлиста
+  PlaylistName: string;
+  PlaylistDescription?: string;
   PlaylistDate: Date;
 }
 
-// Атрибуты для создания
 export interface PlaylistCreationAttributes extends Optional<PlaylistAttributes, 'PlaylistID'> {}
 
 class Playlist extends Model<PlaylistAttributes, PlaylistCreationAttributes> implements PlaylistAttributes {
@@ -48,7 +46,7 @@ Playlist.init(
     PlaylistDate: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: DataTypes.NOW, // Значение по умолчанию
+      defaultValue: DataTypes.NOW,
     },
   },
   {

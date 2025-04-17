@@ -17,9 +17,15 @@ $accent-color: #010004;
     flex-direction: row;
     align-items: center;
     .logo {
-        display: flex;
-    align-items: center;
-    gap: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      &:hover {
+        p {
+          color: $primary-color;
+        }
+      }
     }
    
   .logo p {
@@ -38,7 +44,6 @@ $accent-color: #010004;
     margin: 0;
 }
   
-// Основные стили для контейнера
 .signwindow {
   background-color: $primary-color;
   color: $secondary-color;
@@ -62,7 +67,6 @@ $accent-color: #010004;
   margin-bottom: 1rem;
 }
 
-// Стили для формы
 .signform {
     background-color: $primary-color;
   display: flex;
@@ -126,7 +130,6 @@ $accent-color: #010004;
   }
 }
 
-// Стили для текстового блока под формой
 .reservecase {
     
   font-size: 0.9rem;

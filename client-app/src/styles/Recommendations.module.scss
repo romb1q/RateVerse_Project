@@ -1,0 +1,129 @@
+$primary-color: #5941A9;
+$secondary-color: #FFF8F0;
+$accent-color: #010004;
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/Montserrat-Bold.ttf");
+  font-weight: 600;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/Montserrat-Regular.ttf");
+  font-weight: 300;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/Montserrat-Light.ttf");
+  font-weight: 10;
+}
+
+* {
+  font-family: "Montserrat";
+}
+
+
+.wrapper {
+    padding: 2rem;
+    background: $accent-color;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  }
+  
+  h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  
+    button {
+      padding: 0.6rem 1.2rem;
+      background-color: $accent-color;
+      border: 1px solid $primary-color;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+  
+      &:hover {
+        background-color: #7663b3;
+      }
+      &:focus {
+        border: none;
+      }
+    }
+  
+    .active {
+      background-color: $primary-color;
+      border-color: $primary-color;
+    }
+  }
+  
+  .tabContent {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  .grid {
+    display: grid;
+    width: 700px;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .card {
+    cursor: pointer;
+    background: $accent-color;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s;
+  
+    &:hover {
+      transform: translateY(-5px);
+    }
+  
+    img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+  
+    .cardInfo {
+      padding: 0.8rem;
+      text-align: center;
+  
+      h4 {
+        font-size: 1rem;
+        margin-bottom: 0.4rem;
+      }
+  
+      p {
+        font-size: 0.85rem;
+        color: #666;
+      }
+    }
+  }
+  
+  .emptyMessage {
+    text-align: center;
+    font-style: italic;
+    color: #777;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  

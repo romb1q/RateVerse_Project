@@ -11,7 +11,7 @@ class PlaylistService {
         include: [
           {
             model: PlaylistContent,
-            as: 'contents', // Имя alias, указанное в ассоциации
+            as: 'contents',
           },
         ],
       });
@@ -22,7 +22,6 @@ class PlaylistService {
     }
   }
 
-  // Создание нового плейлиста
   static async createPlaylist(userID: number, name: string, description?: string) {
     const newPlaylist = await Playlist.create({
       PlaylistUserID: userID,
@@ -33,7 +32,6 @@ class PlaylistService {
     return newPlaylist;
   }
 
-  // Удаление плейлиста
   static async deletePlaylist(playlistID: number, userID: number) {
     const playlist = await Playlist.findOne({ where: { PlaylistID: playlistID, PlaylistUserID: userID } });
     if (!playlist) {
@@ -42,7 +40,6 @@ class PlaylistService {
     await playlist.destroy();
   }
 
-  // Добавление контента в плейлист
   static async addContentToPlaylist(playlistID: number, contentID: number) {
     const playlist = await Playlist.findByPk(playlistID);
     if (!playlist) {
@@ -57,7 +54,6 @@ class PlaylistService {
     await PlaylistContent.create({ PlaylistID: playlistID, ContentID: contentID });
 }
 
-  // Удаление контента из плейлиста
   static async removeContentFromPlaylist(playlistID: number, contentID: number, userID: number) {
     const playlist = await Playlist.findOne({ where: { PlaylistID: playlistID, PlaylistUserID: userID } });
     if (!playlist) {
@@ -77,22 +73,19 @@ class PlaylistService {
     playlistID: number,
     name?: string,
     description?: string,
-    contentToAdd?: number[], // Массив ID контента для добавления
-    contentToRemove?: number[] // Массив ID контента для удаления
+    contentToAdd?: number[],
+    contentToRemove?: number[]
 ) {
-    // Найти плейлист
     const playlist = await Playlist.findOne({ where: { PlaylistID: playlistID, PlaylistUserID: userID } });
 
     if (!playlist) {
       throw new Error('Плейлист не найден или доступ запрещен');
     }
 
-    // Обновление названия и описания
     if (name) playlist.PlaylistName = name;
     if (description) playlist.PlaylistDescription = description;
     await playlist.save();
 
-    // Удаление контента
     if (contentToRemove && contentToRemove.length > 0) {
       await PlaylistContent.destroy({
         where: {
@@ -102,7 +95,6 @@ class PlaylistService {
       });
     }
 
-    // Добавление нового контента
     if (contentToAdd && contentToAdd.length > 0) {
       const playlistContents = contentToAdd.map(contentID => ({
         PlaylistID: playlistID,
@@ -111,7 +103,7 @@ class PlaylistService {
       await PlaylistContent.bulkCreate(playlistContents);
     }
 
-    return playlist; // Возвращаем обновленный плейлист
+    return playlist;
 }
 
   
@@ -122,11 +114,11 @@ class PlaylistService {
         include: [
           {
             model: PlaylistContent,
-            as: 'contents', // Алиас для связи с PlaylistContent
+            as: 'contents',
             include: [
               {
                 model: Content,
-                as: 'contentDetails', // Алиас для связи с Content
+                as: 'contentDetails',
               },
             ],
           },

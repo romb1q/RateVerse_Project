@@ -18,7 +18,7 @@ const upload = multer({
   fileFilter: (req, file, cb) => {
     if (!file) {
       console.error('Файл не передан!');
-      cb(null, false); // Продолжаем, но без файла
+      cb(null, false);
     } else {
       console.log('Мултер получил файл:', file);
       cb(null, true);

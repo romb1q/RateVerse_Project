@@ -22,7 +22,6 @@ class PlaylistController {
       res.status(500).json({ error: error.message });
     }
   }
-  // Создание плейлиста
   static async createPlaylist(req: Request, res: Response) {
     const authHeader = req.headers.authorization;
   
@@ -44,7 +43,6 @@ class PlaylistController {
     }
   }
 
-  // Удаление плейлиста
   static async deletePlaylist(req: Request, res: Response): Promise<void> {
     const authHeader = req.headers.authorization;
 
@@ -65,7 +63,6 @@ class PlaylistController {
     }
   }
 
-  // Добавление контента в плейлист
   static async addContentToPlaylist(req: Request, res: Response): Promise<void> {
     try {
       const { playlistID, contentID } = req.params;
@@ -82,7 +79,6 @@ class PlaylistController {
     }
   }
 
-  // Удаление контента из плейлиста
   static async removeContentFromPlaylist(req: Request, res: Response): Promise<void> {
     const authHeader = req.headers.authorization;
 
@@ -107,7 +103,6 @@ class PlaylistController {
          res.status(400).json({ error: 'UserID is required for authentication.' });
       }
   
-      // Вызываем метод удаления контента
       await PlaylistService.removeContentFromPlaylist(Number(playlistID), Number(contentID), Number(userID));
   
        res.status(200).json({ message: 'Content removed from playlist successfully.' });
@@ -133,7 +128,6 @@ class PlaylistController {
       const { playlistID } = req.params;
       const { name, description, contentToAdd, contentToRemove } = req.body;
 
-      // Вызываем сервис для обновления плейлиста
       const updatedPlaylist = await PlaylistService.updatePlaylist(
         userID,
         Number(playlistID),
@@ -150,7 +144,6 @@ class PlaylistController {
     }
   }
 
-  // Получение контента конкретного плейлиста
 static async getPlaylistContent(req: Request, res: Response): Promise<void> {
   const authHeader = req.headers.authorization;
 

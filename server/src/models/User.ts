@@ -3,7 +3,6 @@
 import { Model, DataTypes, Optional } from 'sequelize';
 import sequelize from '../config/database';
 
-// Определяем атрибуты пользователя
 export interface UserAttributes {
   UserID: number;
   UserName: string;
@@ -12,10 +11,8 @@ export interface UserAttributes {
   UserStatus: string;
 }
 
-// Определяем тип для создания пользователя, где UserID опционален
 export interface UserCreationAttributes extends Optional<UserAttributes, 'UserID'> {}
 
-// Определяем модель User
 class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
   public UserID!: number;
   public UserName!: string;

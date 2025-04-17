@@ -12,7 +12,6 @@ export const checkRole = (roles: string[]) => {
       const authHeader = req.headers.authorization;
       const token = authHeader ? authHeader.split(' ')[1] : undefined;
 
-      // Если токена нет и роль "гость" разрешена, пропускаем запрос
       if (!token) {
         if (roles.includes('guest')) {
           return next();
@@ -21,7 +20,6 @@ export const checkRole = (roles: string[]) => {
         return;
       }
 
-      // Проверка токена
       const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
       console.log('Decoded payload:', decoded);
 
@@ -42,14 +40,12 @@ export const checkRole = (roles: string[]) => {
       console.log('Token:', token);
       console.log('Decoded token ID:', decoded.userId);
 
-      // Добавляем пользователя в запрос для дальнейшего использования
       (req as any).user = user;
       next();
     } catch (error) {
       const err = error as Error; // Приведение к типу `Error`
       console.error('JWT verification error:', err.message);
 
-      // Если произошла ошибка при проверке токена, но роль "гость" разрешена
       if (roles.includes('guest')) {
         return next();
       }

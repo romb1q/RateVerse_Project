@@ -140,7 +140,6 @@ const MoviesPage: React.FC = () => {
           onChange={handleSearch}
         />
 
-        {/* Фильтрация жанра */}
         <div className={styles.dropdown}>
     <button className={styles.dropdownButton}>
       {filter.genre}
@@ -163,7 +162,6 @@ const MoviesPage: React.FC = () => {
     </ul>
   </div>
 
-        {/* Фильтрация года */}
         <div className={styles.dropdown}>
           <button className={styles.dropdownButton}>
             {filter.year}
@@ -182,7 +180,6 @@ const MoviesPage: React.FC = () => {
           </ul>
         </div>
 
-        {/* Сортировка */}
         <div className={styles.dropdown}>
           <button className={styles.dropdownButton}>
             Сортировка: {sort} {sortDirection === 'asc' ? '↑' : '↓'}

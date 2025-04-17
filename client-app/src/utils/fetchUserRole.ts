@@ -6,7 +6,7 @@ export const getUserRole = async () => {
     const response = await fetchWithAuth(`http://localhost:5000/auth/user-role`);
     if (response.ok) {
       const data = await response.json();
-      return data.role || 'guest'; // Если сервер вернул null, интерпретируем как guest
+      return data.role || 'guest';
     } else {
       console.error('Failed to fetch user role');
       return 'guest';
@@ -22,7 +22,7 @@ export const getUserName = async () => {
     const response = await fetchWithAuth(`http://localhost:5000/auth/user-name`);
     if (response.ok) {
       const data = await response.json();
-      return data.name || 'User'; // Если сервер вернул null, устанавливаем 'User'
+      return data.name || 'User';
     } else {
       console.error('Failed to fetch user name');
       return 'User';
@@ -40,7 +40,7 @@ export const getUserId = async () => {
     const response = await fetchWithAuth(`http://localhost:5000/auth/user-id`);
     if (response.ok) {
       const data = await response.json();
-      return data.id || '0'; // Если сервер вернул null, интерпретируем как ID гостя
+      return data.id || '0';
     } else {
       console.error('Failed to fetch user id');
       return '0';

@@ -20,6 +20,7 @@ import PlaylistContent from '../components/PlaylistContent';
 import WelcomeScreen from '../components/WelcomeScreen';
 import LikesPage from '../components/LikesPage';
 import Activity from '../components/ActivityComponent';
+import Recommendations from '../components/RecommendationsComponent';
 
 
 
@@ -49,6 +50,7 @@ const App: React.FC = () => {
         <Route path="/playlists/:playlistID/content" element={<PlaylistContent/>} />
         <Route path="/likes" element={<LikesPage/>} />
         <Route path="/activity" element={<Activity/>} />
+        <Route path="/recommendations" element={<Recommendations/>} />
       </Routes>
       <ToastContainer style={{background:"red"}} position="top-right" autoClose={3000} hideProgressBar={false} />
     </BrowserRouter>

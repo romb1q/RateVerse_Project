@@ -21,6 +21,7 @@ class Like extends Model<LikeAttributes, LikeCreationAttributes> implements Like
   public LikeUserID!: number;
   public LikeContentID!: number;
   public LikeDate!: Date;
+  public Content?: Content;
 }
 
 Like.init(

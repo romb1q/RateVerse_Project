@@ -11,17 +11,14 @@ class LikeController {
         }
     
         try {
-            // Проверка на существование лайка
             const existingLike = await Like.findOne({
                 where: { LikeUserID, LikeContentID },
             });
     
             if (existingLike) {
-              // Если лайк существует, удаляем его
               await existingLike.destroy();
               res.status(200).json({ message: 'Лайк удалён' });
           } else {
-              // Если лайк не существует, создаем новый
               const newLike = await Like.create({ LikeUserID, LikeContentID, LikeDate: new Date() });
               res.status(201).json(newLike);
           }
@@ -116,17 +113,14 @@ class LikeController {
         }
       
         try {
-            // Проверка на существование лайка
             const existingLike = await Like.findOne({
                 where: { LikeUserID, LikeContentID },
             });
       
             if (existingLike) {
-                // Если лайк существует, удаляем его
                 await existingLike.destroy();
                 res.status(200).json({ message: 'Лайк удалён' });
             } else {
-                // Если лайк не существует, создаем новый
                 const newLike = await Like.create({ LikeUserID, LikeContentID, LikeDate: new Date() });
                 res.status(201).json(newLike);
             }

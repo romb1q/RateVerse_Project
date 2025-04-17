@@ -12,7 +12,6 @@ const StarRatingInput: React.FC<StarRatingInputProps> = ({ onSubmit, onDelete, i
     const [selectedRating, setSelectedRating] = useState<number | null>(initialRating || null);
 
     useEffect(() => {
-        // Обновляем состояние при изменении начального рейтинга
         setSelectedRating(initialRating || null);
     }, [initialRating]);
 

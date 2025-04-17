@@ -73,13 +73,12 @@ export const getUserRoleController = async (req: Request, res: Response): Promis
     const token = authHeader?.split(' ')[1];
 
     if (!token) {
-      // Возвращаем роль "guest", если токен отсутствует
       res.status(200).json({ role: 'guest' });
       return;
     }
 
     try {
-      const role = await getUserRole(token); // Передаем token в функцию getUserRole
+      const role = await getUserRole(token);
       res.status(200).json({ role });
     } catch (error) {
       console.error('Ошибка проверки токена:', error);
@@ -96,13 +95,12 @@ export const getUserNameController = async (req: Request, res: Response): Promis
   try {
     const token = req.headers.authorization?.split(' ')[1];
     if (!token) {
-      // Если токен отсутствует, возвращаем имя "Гость"
       res.status(200).json({ name: 'Guest' });
       return;
     }
 
     const name = await getUserName(token);
-    res.status(200).json({ name }); // Отправляем имя обратно в ответе
+    res.status(200).json({ name });
   } catch (error: unknown) {
     console.error('Ошибка при получении имени пользователя:', (error as Error).message);
     res.status(401).json({ message: (error as Error).message });
@@ -113,7 +111,6 @@ export const getUserIdController = async (req: Request, res: Response): Promise<
   try {
     const token = req.headers.authorization?.split(' ')[1];
     if (!token) {
-      // Если токен отсутствует, возвращаем null как ID для гостя
       res.status(200).json({ id: 0 });
       return;
     }

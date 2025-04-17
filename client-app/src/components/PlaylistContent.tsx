@@ -5,7 +5,6 @@ import '../styles/PlaylistContent.scss';
 import Header from './Header';
 import Footer from './Footer';
 
-// Интерфейс для контента
 interface Content {
   ContentID: string;
   ContentName: string;
@@ -63,7 +62,6 @@ const PlaylistContent: React.FC = () => {
     fetchPlaylistContent();
   }, [playlistID]);
 
-  // Функция поиска контента
   const searchContent = async (query: string) => {
     if (!query.trim()) {
       setSearchResults([]);
@@ -87,7 +85,6 @@ const PlaylistContent: React.FC = () => {
     }
   };
 
-  // Добавление контента в плейлист
   const addContentToPlaylist = async (content: Content) => {
     try {
       const token = localStorage.getItem('accessToken');
@@ -115,7 +112,6 @@ const PlaylistContent: React.FC = () => {
     }
   };
 
-  // Обработчик ввода текста в поисковую строку
   const handleSearchInput = (query: string) => {
     setSearchQuery(query);
     if (query.trim().length > 0) {
@@ -126,7 +122,6 @@ const PlaylistContent: React.FC = () => {
     }
   };
 
-  // Функция удаления контента из плейлиста
   const removeContentFromPlaylist = async (contentID: string) => {
     try {
       const token = localStorage.getItem('accessToken');
@@ -149,7 +144,6 @@ const PlaylistContent: React.FC = () => {
     }
   };
 
-  // Блокировка скролла при открытии выпадающего списка
   useEffect(() => {
     if (isDropdownVisible) {
       document.body.style.overflow = 'hidden';
@@ -157,7 +151,6 @@ const PlaylistContent: React.FC = () => {
       document.body.style.overflow = 'auto';
     }
 
-    // Сброс стиля при размонтировании компонента
     return () => {
       document.body.style.overflow = 'auto';
     };
@@ -178,7 +171,6 @@ const PlaylistContent: React.FC = () => {
         <h1 className="playlist-content__title">{playlistName}</h1>
       </header>
 
-      {/* Поиск контента */}
       <div className="search">
         <p>Добавление контента в плейлист:</p>
         <input
@@ -209,7 +201,6 @@ const PlaylistContent: React.FC = () => {
         )}
       </div>
 
-      {/* Контент плейлиста */}
       <div className="playlist-content__list">
         {contentList.map((content) => (
           <div key={content.ContentID} className="content-card" onClick={() => navigate(`/content/${content.ContentID}`)}>

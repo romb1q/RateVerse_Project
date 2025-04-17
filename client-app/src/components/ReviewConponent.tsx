@@ -22,14 +22,13 @@ interface ReviewComponentProps {
 const ReviewComponent: React.FC<ReviewComponentProps> = ({ userId, contentId }) => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [newReviewText, setNewReviewText] = useState('');
-  const [newRating, setNewRating] = useState<number>(0);  // Новое состояние для рейтинга
+  const [newRating, setNewRating] = useState<number>(0);
   const [currentUserId, setCurrentUserId] = useState<number | null>(null);
   const [role, setRole] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   //const [userRatings, setUserRatings] = useState<{ userId: number; rating: number | null }[]>([]);
   const API_URL = 'http://localhost:5000/api/review';
 
-  // Получение ID текущего пользователя
   useEffect(() => {
     const fetchUserId = async () => {
       try {
@@ -95,7 +94,6 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({ userId, contentId }) 
 
   
 
-  // Добавление отзыва с рейтингом
   const addReview = async () => {
     if (!newReviewText.trim()) return;
   
@@ -125,7 +123,6 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({ userId, contentId }) 
   };
   
 
-  // Удаление отзыва
   const deleteReview = async (reviewId: number) => {
     try {
       const token = localStorage.getItem('accessToken');
@@ -144,7 +141,6 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({ userId, contentId }) 
     }
   };
 
-  // Изменение отзыва
   const updateReview = async (reviewId: number, newText: string) => {
     try {
       const token = localStorage.getItem('accessToken');
@@ -170,7 +166,6 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({ userId, contentId }) 
     }
   };
 
-  // Блокировка отзыва
   const blockReview = async (reviewId: number) => {
     try {
       const token = localStorage.getItem('accessToken');
@@ -222,7 +217,6 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({ userId, contentId }) 
     <div className={styles.reviewContainer}>
       <h2 className={styles.header}>Отзывы</h2>
 
-      {/* Проверка на гостя */}
       {userId === '0' || userId === null ? (
         <></>
       ) : (
@@ -292,7 +286,6 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({ userId, contentId }) 
                     </div>
                   )}
 
-                  {/* Действия администратора */}
                   {role === 'admin' && (
                     <div className={styles.adminActions}>
                       {review.ReviewStatus === 'available' ? (

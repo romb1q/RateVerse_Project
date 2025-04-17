@@ -2,10 +2,9 @@
 
 import { Model, DataTypes, Optional } from 'sequelize';
 import sequelize from '../config/database';
-import { UserAttributes } from './User'; // Импортируем UserAttributes для ссылок
-import { ContentAttributes } from './Content'; // Импортируем ContentAttributes для ссылок
+import { UserAttributes } from './User';
+import { ContentAttributes } from './Content';
 
-// Определяем атрибуты для модели Rating
 export interface RatingAttributes {
   RatingID: number;
   RatingUserID: number;
@@ -14,7 +13,6 @@ export interface RatingAttributes {
   RatingDate: Date;
 }
 
-// Определяем тип для создания записи в модели Rating, где RatingID является опциональным
 export interface RatingCreationAttributes extends Optional<RatingAttributes, 'RatingID'> {}
 
 class Rating extends Model<RatingAttributes, RatingCreationAttributes> implements RatingAttributes {
@@ -36,7 +34,7 @@ Rating.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'Users', // Название модели для связи
+        model: 'Users',
         key: 'UserID',
       },
     },
@@ -44,7 +42,7 @@ Rating.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'Contents', // Название модели для связи
+        model: 'Contents',
         key: 'ContentID',
       },
     },
@@ -60,8 +58,8 @@ Rating.init(
   {
     sequelize,
     modelName: 'Rating',
-    tableName: 'Ratings', // Используем множественное число для имени таблицы
-    timestamps: false, // Отключаем временные метки
+    tableName: 'Ratings',
+    timestamps: false,
   }
 );
 

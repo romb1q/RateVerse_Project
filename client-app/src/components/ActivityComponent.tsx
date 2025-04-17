@@ -76,7 +76,7 @@ const Activity: React.FC = () => {
       case 'like':
         return 'Поставлен лайк';
       case 'view':
-        return 'Просмотрено';
+        return 'Просмотрено/пройдено';
       case 'watchlist':
         return 'Добавлено в желаемое';
       default:
@@ -176,7 +176,6 @@ const Activity: React.FC = () => {
           <p>Вы пока не совершали никаких действий.</p>
         ) : (
           <>
-            {/* Отрисовываем ТОЛЬКО текущие элементы */}
             <div key={`page-${currentPage}`} className={styles.pageContainer}>
               {currentItems.map((item) => (
                 <div key={`${item.type}-${item.id}`} className={styles.feedItem}>

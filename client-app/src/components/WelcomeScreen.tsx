@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/WelcomeScreen.module.scss';
-//import backgroundImage from '../assets/galaxy.jpg';
+import backgroundImage from '../assets/galaxy.jpg';
 
 
 const WelcomeScreen: React.FC = () => {
@@ -12,8 +12,12 @@ const WelcomeScreen: React.FC = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.background}>
+    <div
+    className={styles.container}
+    style={{
+      backgroundImage: `radial-gradient(circle, rgba(27, 39, 53, 0.9), rgba(9, 10, 15, 0.9)), url(${backgroundImage})`
+    }}
+  >
         <div className={styles.content}>
           <div className={styles.logo}>
             <svg width="216" height="216" viewBox="0 0 216 216" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,7 +32,7 @@ const WelcomeScreen: React.FC = () => {
             Начать
           </button>
         </div>
-      </div>
+      
     </div>
   );
 };

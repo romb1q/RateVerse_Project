@@ -7,14 +7,13 @@ interface MovieCardProps {
     id: number;
     title: string;
     poster: string;
-    rating?: number; // Если передается рейтинг, запрос к API можно пропустить
+    rating?: number;
   };
 }
 
 const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
   const [averageRating, setAverageRating] = useState<number | null>(movie.rating ?? null);
 
-  // Функция для получения среднего рейтинга
   const fetchAverageRating = async (contentId: number) => {
     try {
       const response = await axios.get(`http://localhost:5000/api/ratings/${contentId}`);
@@ -37,7 +36,6 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
     }
   };
 
-  // рейтинг при монтировании компонента
   useEffect(() => {
     if (movie.rating === undefined) {
       fetchAverageRating(movie.id);

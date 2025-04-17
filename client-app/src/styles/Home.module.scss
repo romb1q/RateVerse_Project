@@ -113,9 +113,9 @@ $accent-color: #010004;
 
 .dropdownMenu {
   position: absolute;
-  top: 100%; // расположение под userInfo
+  top: 100%;
   right: 0;
-  background-color: #1a1a1a; // темный фон для выпадающего меню
+  background-color: #1a1a1a;
   border-radius: 4px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   width: 120px;
@@ -128,7 +128,7 @@ $accent-color: #010004;
 .logoutButton {
   background: none;
   border: none;
-  color: $secondary-color; // светлый цвет для текста кнопки
+  color: $secondary-color;
   padding: 5px 10px;
   font-size: 1rem;
   cursor: pointer;
@@ -149,27 +149,27 @@ $accent-color: #010004;
 
 .rotate {
   transform: rotate(180deg);
-  transition: transform 0.3s ease; // Добавляем плавный переход
+  transition: transform 0.3s ease;
 }
 
 .welcomeText {
   display: flex;
-  flex-direction: column; // Вертикальное размещение элементов
-  align-items: center; // Горизонтальное центрирование
-  justify-content: center; // Вертикальное центрирование
-  text-align: center; // Центрирование текста внутри элемента
-  padding: 20px; // Отступы вокруг текста
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
 }
 
 .welcomeH1 {
-  font-size: 32px; // Размер текста
-  margin-bottom: 20px; // Отступ между заголовком и опциями
+  font-size: 32px;
+  margin-bottom: 20px;
 }
 
 .GuestOptions, .UserOptions, .AdminOptions {
   display: flex;
-  flex-direction: column; // Вертикально выравниваем элементы внутри опций
-  align-items: center; // Центрируем опции по горизонтали
+  flex-direction: column; 
+  align-items: center; 
 }
 
 
@@ -191,7 +191,7 @@ $accent-color: #010004;
   background-size: cover;
   background-position: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); // добавляем тень
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); 
 
   &:nth-child(1) {
     background-image: url('../assets/imgs/movies.png'); 
@@ -205,7 +205,7 @@ $accent-color: #010004;
 
   &:hover {
     transform: scale(1.05);
-    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.5); // усиливаем тень при наведении
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.5); 
   }
 
   .overlay {
@@ -220,9 +220,9 @@ $accent-color: #010004;
     color: $secondary-color;
     font-size: 20px;
     font-weight: bold;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8); // добавляем тень для текста
-    background: rgba(0, 0, 0, 0.5); // полупрозрачный черный фон поверх изображения
-    backdrop-filter: blur(2px); // размытие для лучшего эффекта
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.5); 
+    backdrop-filter: blur(2px);
     transition: background 0.3s ease;
 
     &:hover {

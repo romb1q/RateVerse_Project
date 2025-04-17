@@ -21,7 +21,7 @@ interface Content {
 
 const PlaylistsComponent: React.FC = () => {
   const [playlists, setPlaylists] = useState<Playlist[]>([]);
-  const [allContent, setAllContent] = useState<Content[]>([]);
+  const [, setAllContent] = useState<Content[]>([]);
   //const [searchQuery, setSearchQuery] = useState<string>("");
   //const [sort, setSort] = useState<"alphabetical" | "createdDate">("alphabetical");
   //const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
@@ -88,7 +88,6 @@ const PlaylistsComponent: React.FC = () => {
 
   const handleEdit = (playlist: Playlist) => {
     setEditingPlaylist({ ...playlist });
-    // Сбросить изменения контента при редактировании
     setContentToAdd([]);
     setContentToRemove([]);
   };
@@ -111,27 +110,22 @@ const PlaylistsComponent: React.FC = () => {
   // const handleContentChange = (contentId: number, checked: boolean) => {
   //   if (checked) {
   //     if (editingPlaylist?.content.includes(contentId)) {
-  //       // Если контент уже добавлен, не добавляем его повторно и выводим сообщение
   //       console.warn("Контент уже добавлен в плейлист.");
   //       alert("Этот контент уже добавлен в плейлист.");
   //       return; // Не продолжаем выполнение функции
   //     }
   
-  //     // Если галочка установлена, добавляем ID в contentToAdd
   //     setContentToAdd((prev) => [...prev, contentId]);
   //     setContentToRemove((prev) => prev.filter((id) => id !== contentId)); // Убираем из удаления
   
-  //     // Обновляем массив контента в редактируемом плейлисте
   //     setEditingPlaylist((prev) => ({
   //       ...prev!,
   //       content: [...prev!.content, contentId], // Добавляем контент в массив
   //     }));
   //   } else {
-  //     // Если галочка снята, добавляем ID в contentToRemove
   //     setContentToRemove((prev) => [...prev, contentId]);
   //     setContentToAdd((prev) => prev.filter((id) => id !== contentId)); // Убираем из добавления
   
-  //     // Обновляем массив контента в редактируемом плейлисте
   //     setEditingPlaylist((prev) => ({
   //       ...prev!,
   //       content: prev!.content.filter((id) => id !== contentId), // Удаляем контент из массива
@@ -150,8 +144,8 @@ const PlaylistsComponent: React.FC = () => {
         {
           name: editingPlaylist.name,
           description: editingPlaylist.description,
-          contentToAdd, // Отправляем контент для добавления
-          contentToRemove, // Отправляем контент для удаления
+          contentToAdd,
+          contentToRemove,
         },
         {
           headers: {
@@ -160,7 +154,6 @@ const PlaylistsComponent: React.FC = () => {
         }
       );
   
-      // Обновляем список плейлистов и сбрасываем состояние
       fetchPlaylists();
       setEditingPlaylist(null);
       alert("Плейлист обновлен успешно!");
@@ -204,7 +197,6 @@ const PlaylistsComponent: React.FC = () => {
 
       <h2 className={styles.title}>Ваши плейлисты</h2>
       
-      {/* Сетка с плейлистами и кнопка создания нового плейлиста */}
       <div className={styles.playlistsGrid}>
         <Link to="/playlists/creation">
           <div className={styles.createBlock}>
@@ -228,13 +220,11 @@ const PlaylistsComponent: React.FC = () => {
         ))}
       </div>
 
-      {/* Модальное окно для редактирования плейлиста */}
       {editingPlaylist && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
             <h3>Редактировать плейлист</h3>
 
-            {/* Поля для редактирования названия и описания */}
             <div className={styles.inputGroup}>
               <input
                 type="text"
@@ -259,7 +249,6 @@ const PlaylistsComponent: React.FC = () => {
             </div>
 
 
-            {/* Кнопки для сохранения и отмены */}
             <div className={styles.modalActions}>
               <button className={styles.saveButton} onClick={handleUpdatePlaylist}>
                 Сохранить

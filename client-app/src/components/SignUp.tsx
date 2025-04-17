@@ -7,7 +7,7 @@ const SignUp: React.FC = () => {
   const [UserName, setName] = useState('');
   const [UserPassword, setPassword] = useState('');
   const [errors, setErrors] = useState({ UserName: '', UserPassword: '' });
-  const [isCheckingUserName, setIsCheckingUserName] = useState(false); // Проверка имени
+  const [isCheckingUserName, setIsCheckingUserName] = useState(false);
   //const [isCheckingUserName, setIsCheckingUserName] = useState(false);
   const navigate = useNavigate();
 
@@ -110,7 +110,7 @@ const SignUp: React.FC = () => {
   return (
     <div className={styles.main}>
   <div className={styles.logoContainer}>
-    <div className={styles.logo}>
+    <div className={styles.logo} onClick={() => navigate(`/`)}>
       <svg width="90" height="90" viewBox="0 0 216 216" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M6 108C6 24.003 24.003 6 108 6C191.997 6 210 24.003 210 108C210 191.997 191.997 210 108 210C24.003 210 6 191.997 6 108Z"

@@ -6,7 +6,6 @@ import User from '../models/User';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
 
-// Создание пользователя
 export async function createUser(req: Request, res: Response): Promise<void> {
   try {
     const user = await userService.createUser(req.body);
@@ -33,7 +32,6 @@ export async function checkUserName(req: Request, res: Response): Promise<void> 
   }
 }
 
-// Получение пользователя по ID
 export async function getUser(req: Request, res: Response): Promise<void> {
   try {
     const user = await userService.getUserById(Number(req.params.id));
@@ -46,8 +44,6 @@ export async function getUser(req: Request, res: Response): Promise<void> {
     res.status(500).json({ error: 'Failed to retrieve user' });
   }
 }
-
-// Получение всех пользователей
 export async function getAllUsers(req: Request, res: Response): Promise<void> {
   try {
     const users = await userService.getAllUsers();
@@ -57,7 +53,6 @@ export async function getAllUsers(req: Request, res: Response): Promise<void> {
   }
 }
 
-// Обновление пользователя
 export async function updateUser(req: Request, res: Response): Promise<void> {
   try {
     const affectedCount = await userService.updateUser(Number(req.params.id), req.body);
@@ -71,7 +66,6 @@ export async function updateUser(req: Request, res: Response): Promise<void> {
   }
 }
 
-// Удаление пользователя
 export async function deleteUser(req: Request, res: Response): Promise<void> {
   try {
     const affectedCount = await userService.deleteUser(Number(req.params.id));
@@ -89,7 +83,6 @@ export async function registerUser(req: Request, res: Response): Promise<void> {
   try {
     const { UserName, UserPassword } = req.body;
 
-    // Проверка на наличие необходимых данных
     if (!UserName || !UserPassword) {
       res.status(400).json({ error: 'Username and password are required' });
       return;
@@ -98,7 +91,6 @@ export async function registerUser(req: Request, res: Response): Promise<void> {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(UserPassword, salt);
 
-    // Регистрируем пользователя
     const newUser = await userService.registerUser({ UserName, UserPassword: hashedPassword, UserRole: 'user', UserStatus: 'active' });
     res.status(201).json({ message: 'User registered successfully', user: newUser });
   } catch (error) {

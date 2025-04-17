@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import Rating from '../models/Rating';
 
-// Создать рейтинг
 export const createOrUpdateRating = async (req: Request, res: Response): Promise<void> => {
     const { RatingUserID, RatingContentID, RatingScore } = req.body;
 
@@ -16,12 +15,10 @@ export const createOrUpdateRating = async (req: Request, res: Response): Promise
         });
 
         if (existingRating) {
-            // Обновляем существующий рейтинг
             existingRating.RatingScore = RatingScore;
             await existingRating.save();
             res.status(200).json({ message: 'Рейтинг обновлён', rating: existingRating });
         } else {
-            // Создаём новый рейтинг
             const rating = await Rating.create({
                 RatingUserID,
                 RatingContentID,
@@ -37,7 +34,6 @@ export const createOrUpdateRating = async (req: Request, res: Response): Promise
 };
 
 
-// Получить рейтинг контента
 export const getRatingsByContent = async (req: Request, res: Response): Promise<void> => {
     const { contentId } = req.params;
 
@@ -50,7 +46,6 @@ export const getRatingsByContent = async (req: Request, res: Response): Promise<
     }
 };
 
-// Получить рейтинг пользователя для контента
 export const getUserRatingForContent = async (req: Request, res: Response): Promise<void> => {
     const { userId, contentId } = req.params;
 
@@ -71,7 +66,6 @@ export const getUserRatingForContent = async (req: Request, res: Response): Prom
     }
 };
 
-// Обновить рейтинг
 export const updateRating = async (req: Request, res: Response): Promise<void> => {
     const { ratingId } = req.params;
     const { RatingScore } = req.body;
@@ -94,7 +88,6 @@ export const updateRating = async (req: Request, res: Response): Promise<void> =
     }
 };
 
-// Удалить рейтинг
 export const deleteRating = async (req: Request, res: Response): Promise<void> => {
     const { ratingId } = req.params;
 
