@@ -13,6 +13,8 @@ import reviewRoutes from './routes/reviewRoutes';
 import playlistRoutes from './routes/playlistRoutes';
 import activityRoutes from './routes/activityRoutes';
 import recommendationRoutes from './routes/recommendationRoutes';
+import contentStatsRouter from './routes/contentStatRoutes';
+import userStatsRouter from './routes/userStatsRoute';
 const cookieParser = require('cookie-parser');
 
 const app = express();
@@ -33,7 +35,9 @@ app.use('/api', watchlistRoutes);
 app.use('/api', reviewRoutes);
 app.use('/api', playlistRoutes);
 app.use('/api', activityRoutes);
-app.use('/api', recommendationRoutes);  
+app.use('/api', recommendationRoutes);
+app.use('/api', contentStatsRouter);
+app.use('/api', userStatsRouter);
 
 app.use('/uploads/', express.static(path.join(__dirname, '../uploads')));
 

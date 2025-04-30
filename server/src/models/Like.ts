@@ -22,6 +22,8 @@ class Like extends Model<LikeAttributes, LikeCreationAttributes> implements Like
   public LikeContentID!: number;
   public LikeDate!: Date;
   public Content?: Content;
+
+  
 }
 
 Like.init(
@@ -51,6 +53,8 @@ Like.init(
       type: DataTypes.DATE,
       allowNull: false,
     },
+
+    
   },
   {
     sequelize,

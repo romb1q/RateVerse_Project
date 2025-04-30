@@ -1,4 +1,4 @@
-$primary-color: #5941A9;
+$primary-color: #d9ceff;
 $secondary-color: #FFF8F0;
 $accent-color: #010004;
 
@@ -30,6 +30,7 @@ $accent-color: #010004;
   }
   
   .feed {
+    vertical-align:auto;
     flex: 1;
     padding: 2rem;
     max-width: 800px;
@@ -39,6 +40,24 @@ $accent-color: #010004;
       font-size: 2rem;
       margin-bottom: 2rem;
       text-align: center;
+    }
+    h3 {
+      text-align: center;
+      margin: 35px 0 25px 0;
+    }
+
+    .statsBlock {
+      display: flex;
+      padding: 0;
+      .allStatBlock, .typeStatBlock {
+        padding: 30px;
+        border: solid 1px #363533;
+        border-radius: 10px;
+      
+        h4 {
+          margin-bottom: 15px;
+        }
+      }
     }
   }
   
@@ -52,6 +71,8 @@ $accent-color: #010004;
     color: $secondary-color;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   
+    margin-left: auto;
+    margin-right: auto;
     .label {
       font-size: 0.9rem;
       color: #aaa;
@@ -115,5 +136,22 @@ $accent-color: #010004;
     background-color: $primary-color;
     color: #fff;
     font-weight: bold;
+  }
+  
+  .statsBlock {
+    padding: 16px;
+    margin-bottom: 24px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+  
+  .statsList {
+    list-style: none;
+    padding: 0;
+  
+    li {
+      margin-bottom: 6px;
+      font-size: 16px;
+    }
   }
   

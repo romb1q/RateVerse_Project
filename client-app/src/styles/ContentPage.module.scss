@@ -58,6 +58,26 @@ $accent-color: #010004;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    .imageBox {
+      .contentStat {
+        display: flex;
+        .likesStat {
+          padding: 5px 10px 0 10px;
+          display: flex;
+          align-items: center;
+        }
+        .wishlistsStat {
+          padding: 5px 10px 0 10px;
+          display: flex;
+          align-items: center;
+        }
+        .watchesStat {
+          padding: 5px 10px 0 10px;
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
   }
 
   .imageContainer {

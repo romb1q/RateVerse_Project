@@ -4,6 +4,9 @@ import styles from '../styles/Activity.module.scss';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { ContentType } from '../utils/types';
+import { decodeToken } from '../utils/decodeToken';
+import { PieChart, Pie, Cell, Legend, Tooltip, TooltipProps } from 'recharts';
+import { ValueType, NameType } from 'recharts/types/component/DefaultTooltipContent';
 
 type ActivityItem = {
   id: number;
@@ -13,11 +16,18 @@ type ActivityItem = {
 };
 
 const Activity: React.FC = () => {
+  const COLORS = ['#5941A9', '#f39c12', '#d9ceff'];
+  
   const [activity, setActivity] = useState<ActivityItem[]>([]);
   const [loading, setLoading] = useState(true);
-
+  const [stats, setStats] = useState<{ likes: number; watched: number; watchlist: number; likesByType: { [type: string]: number };} | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
+  const dataFirst = [
+    { name: 'Лайки', value: stats?.likes || 0 },
+    { name: 'Просмотрено', value: stats?.watched || 0 },
+    { name: 'В желаемом', value: stats?.watchlist || 0 },
+  ];
 
   useEffect(() => {
     const fetchActivity = async () => {
@@ -62,6 +72,23 @@ const Activity: React.FC = () => {
       }
     };
 
+    const fetchStats = async () => {
+      const token = localStorage.getItem('accessToken');
+      if (!token) return;
+  
+      const decoded = decodeToken(token);
+      const userId = decoded?.userId;
+  
+      if (!userId) return;
+  
+      try {
+        const res = await axios.get(`http://localhost:5000/api/user/${userId}/stats`);
+        setStats(res.data);
+      } catch (err) {
+        console.error('Ошибка при получении статистики:', err);
+      }
+    };
+    fetchStats();
     fetchActivity();
   }, []);
 
@@ -157,13 +184,32 @@ const Activity: React.FC = () => {
     return <div className={styles.pagination}>{pageNumbers}</div>;
   };
   
-  
-  
-  
-
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = activity.slice(indexOfFirstItem, indexOfLastItem);
+
+  const CustomTooltip = ({
+    active,
+    payload,
+  }: TooltipProps<ValueType, NameType>) => {
+    if (active && payload && payload.length) {
+      return (
+        <div
+          style={{
+            background: '#010004',
+            color: '#fff',
+            padding: '10px',
+            borderRadius: '8px',
+            boxShadow: '0 2px 10px rgba(0,0,0,0.3)',
+          }}
+        >
+          <p style={{ margin: 0 }}>{payload[0].name}: {payload[0].value}</p>
+        </div>
+      );
+    }
+  
+    return null;
+  };
 
   if (loading) return <p>Загрузка активности...</p>;
 
@@ -172,6 +218,68 @@ const Activity: React.FC = () => {
       <Header />
       <div className={styles.feed}>
         <h2>Ваша активность</h2>
+        <h3>Общая статистика</h3>
+        {stats && (
+          <div className={styles.statsBlock}>
+            <div className={styles.allStatBlock}>
+              <h4>Оставленные отметки</h4>
+              <ul className={styles.statsList}>
+              <li>Лайков: <strong>{stats.likes}</strong></li>
+              <li>Просмотрено/пройдено: <strong>{stats.watched}</strong></li>
+              <li>В желаемом: <strong>{stats.watchlist}</strong></li>
+            </ul>
+            <PieChart width={300} height={300}>
+              <Pie
+                data={dataFirst}
+                cx="50%"
+                cy="50%"
+                innerRadius={60}
+                outerRadius={80}
+                fill="#8884d8"
+                dataKey="value"
+                label
+              >
+                {dataFirst.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+              <Tooltip content={<CustomTooltip />} />
+              <Legend />
+            </PieChart>
+            </div>
+            <div className={styles.typeStatBlock}>
+            {stats?.likesByType && (
+              <div className={styles.chartContainer}>
+                <h4>Лайки по типу контента</h4>
+                <ul className={styles.statsList}>
+                  <li>Фильмы: <strong>{stats.likesByType["movie"]}</strong></li>
+                  <li>Игры: <strong>{stats.likesByType["game"]}</strong></li>
+                  <li>Сериалы: <strong>{stats.likesByType["serial"]}</strong></li>
+                </ul>
+                <PieChart width={300} height={300}>
+                  <Pie
+                    data={Object.entries(stats.likesByType).map(([type, value]) => ({ name: type, value }))}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={60}
+                    outerRadius={80}
+                    dataKey="value"
+                    label
+                  >
+                    {Object.entries(stats.likesByType).map((_, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip content={<CustomTooltip />} />
+                  <Legend />
+                </PieChart>
+              </div>
+            )}
+
+            </div>
+          </div>
+        )}
+        <h3>Совершённые действия</h3>
         {activity.length === 0 ? (
           <p>Вы пока не совершали никаких действий.</p>
         ) : (

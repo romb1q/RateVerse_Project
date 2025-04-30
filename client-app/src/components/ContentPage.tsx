@@ -19,6 +19,11 @@ interface Content {
   ContentCrew: string;
   rating: number | null;
 }
+interface ContentStats {
+  watched: number;
+  likes: number;
+  wishlist: number;
+}
 
 const ContentPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -33,6 +38,7 @@ const ContentPage: React.FC = () => {
   const [playlists, setPlaylists] = useState<any[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlaylists, setSelectedPlaylists] = useState<number[]>([]);
+  const [stats, setStats] = useState<ContentStats | null>(null);
 
 
   const navigate = useNavigate();
@@ -170,8 +176,17 @@ const ContentPage: React.FC = () => {
     }
   };
 
+  const fetchStats = async () => {
+    try {
+      const response = await axios.get<ContentStats>(`http://localhost:5000/api/content/${id}/stats`);
+      setStats(response.data);
+    } catch (error) {
+      console.error('Ошибка при получении статистики контента:', error);
+    }
+  }
   useEffect(() => {
     fetchUserId();
+    fetchStats();
   }, [id]);
 
 
@@ -341,10 +356,37 @@ const handleWatchList = async () => {
       <div className={styles.contentPage}>
         {content && (
           <div className={styles.wrapper}>
-            <div className={styles.imageContainer}>
+            <div className={styles.imageBox}>
+              <div className={styles.imageContainer}>
               <img src={content.ContentImage} alt={content.ContentName} className={styles.image} />
             </div>
-
+            {stats && (
+                <div className={styles.contentStat}>
+                  
+                  <div className={styles.wishlistsStat}>
+                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 7V12H15M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#3FBFFF" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                     {stats.wishlist}
+                  </div>
+                  <div className={styles.watchesStat}>
+                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path opacity="0.1" d="M13.8179 4.54512L13.6275 4.27845C12.8298 3.16176 11.1702 3.16176 10.3725 4.27845L10.1821 4.54512C9.76092 5.13471 9.05384 5.45043 8.33373 5.37041L7.48471 5.27608C6.21088 5.13454 5.13454 6.21088 5.27608 7.48471L5.37041 8.33373C5.45043 9.05384 5.13471 9.76092 4.54512 10.1821L4.27845 10.3725C3.16176 11.1702 3.16176 12.8298 4.27845 13.6275L4.54512 13.8179C5.13471 14.2391 5.45043 14.9462 5.37041 15.6663L5.27608 16.5153C5.13454 17.7891 6.21088 18.8655 7.48471 18.7239L8.33373 18.6296C9.05384 18.5496 9.76092 18.8653 10.1821 19.4549L10.3725 19.7215C11.1702 20.8382 12.8298 20.8382 13.6275 19.7215L13.8179 19.4549C14.2391 18.8653 14.9462 18.5496 15.6663 18.6296L16.5153 18.7239C17.7891 18.8655 18.8655 17.7891 18.7239 16.5153L18.6296 15.6663C18.5496 14.9462 18.8653 14.2391 19.4549 13.8179L19.7215 13.6275C20.8382 12.8298 20.8382 11.1702 19.7215 10.3725L19.4549 10.1821C18.8653 9.76092 18.5496 9.05384 18.6296 8.33373L18.7239 7.48471C18.8655 6.21088 17.7891 5.13454 16.5153 5.27608L15.6663 5.37041C14.9462 5.45043 14.2391 5.13471 13.8179 4.54512Z" fill="#43FF4A"/>
+                      <path d="M13.8179 4.54512L13.6275 4.27845C12.8298 3.16176 11.1702 3.16176 10.3725 4.27845L10.1821 4.54512C9.76092 5.13471 9.05384 5.45043 8.33373 5.37041L7.48471 5.27608C6.21088 5.13454 5.13454 6.21088 5.27608 7.48471L5.37041 8.33373C5.45043 9.05384 5.13471 9.76092 4.54512 10.1821L4.27845 10.3725C3.16176 11.1702 3.16176 12.8298 4.27845 13.6275L4.54512 13.8179C5.13471 14.2391 5.45043 14.9462 5.37041 15.6663L5.27608 16.5153C5.13454 17.7891 6.21088 18.8655 7.48471 18.7239L8.33373 18.6296C9.05384 18.5496 9.76092 18.8653 10.1821 19.4549L10.3725 19.7215C11.1702 20.8382 12.8298 20.8382 13.6275 19.7215L13.8179 19.4549C14.2391 18.8653 14.9462 18.5496 15.6663 18.6296L16.5153 18.7239C17.7891 18.8655 18.8655 17.7891 18.7239 16.5153L18.6296 15.6663C18.5496 14.9462 18.8653 14.2391 19.4549 13.8179L19.7215 13.6275C20.8382 12.8298 20.8382 11.1702 19.7215 10.3725L19.4549 10.1821C18.8653 9.76092 18.5496 9.05384 18.6296 8.33373L18.7239 7.48471C18.8655 6.21088 17.7891 5.13454 16.5153 5.27608L15.6663 5.37041C14.9462 5.45043 14.2391 5.13471 13.8179 4.54512Z" stroke="#43FF4A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M9 12L10.8189 13.8189V13.8189C10.9189 13.9189 11.0811 13.9189 11.1811 13.8189V13.8189L15 10" stroke="#43FF4A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <p>{stats.watched}</p>
+                  </div>
+                  <div className={styles.likesStat}>
+                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8.10627 18.2468C5.29819 16.0833 2 13.5422 2 9.1371C2 4.27416 7.50016 0.825464 12 5.50063L14 7.49928C14.2929 7.79212 14.7678 7.79203 15.0607 7.49908C15.3535 7.20614 15.3534 6.73127 15.0605 6.43843L13.1285 4.50712C17.3685 1.40309 22 4.67465 22 9.1371C22 13.5422 18.7018 16.0833 15.8937 18.2468C15.6019 18.4717 15.3153 18.6925 15.0383 18.9109C14 19.7294 13 20.5 12 20.5C11 20.5 10 19.7294 8.96173 18.9109C8.68471 18.6925 8.39814 18.4717 8.10627 18.2468Z" fill="#FF3F3F"/>
+                    </svg>
+                    {stats.likes}
+                  </div>
+                </div>
+              )}
+            </div>
+            
             <div className={styles.infoContainer}>
               <h1 className={styles.title}>{content.ContentName}</h1>
               <p><strong>Жанр:</strong> {content.ContentGenre}</p>
