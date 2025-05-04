@@ -2,6 +2,7 @@
 
 import { Model, DataTypes, Optional } from 'sequelize';
 import sequelize from '../config/database';
+import Playlist from './Playlist';
 
 export interface UserAttributes {
   UserID: number;
@@ -52,5 +53,7 @@ User.init(
     timestamps: false,
   }
 );
+
+//User.hasMany(Playlist, { foreignKey: 'PlaylistUserID' });
 
 export default User;

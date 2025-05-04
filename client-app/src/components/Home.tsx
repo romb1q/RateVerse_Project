@@ -6,9 +6,12 @@ import styles from '../styles/Home.module.scss';
 import Header from './Header';
 import Footer from './Footer';
 
+
 const Home: React.FC = () => {
   const [role, setRole] = useState<string | null>(null);
   const [name, setName] = useState<string | null>(null);
+  const [collections, setCollections] = useState<{ PlaylistID: number; PlaylistName: string; PlaylistDescription: string}[]>([]);
+
   const navigate = useNavigate();
 
 
@@ -17,16 +20,31 @@ const Home: React.FC = () => {
       const userRole = await getUserRole();
       setRole(userRole || 'guest');
     };
-    fetchUserRole();
-  }, []);
-
-  useEffect(() => {
+    
     const fetchUserName = async () => {
       const userName = await getUserName();
       setName(userName || 'User');
     };
+
+    const fetchCollections = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/playlists/collections', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        });
+        const data = await response.json();
+        setCollections(data);
+      } catch (err) {
+        console.error('Ошибка при загрузке подборок:', err);
+      }
+    };fetchCollections();
+    
     fetchUserName();
+    fetchUserRole();
+    
   }, []);
+
 
   if (role === null) return <p>Loading...</p>;
 
@@ -97,6 +115,19 @@ const Home: React.FC = () => {
         </div>
       </div>
     )}
+    <div className={styles.collectionsContainer}>
+      {collections.map((collection) => (
+      <div key={collection.PlaylistID} onClick={() => navigate(`/playlists/${collection.PlaylistID}/content`)} className={styles.collectionCard}>
+        <div className={styles.leftBar}></div>
+        <div className={styles.textBlock}>
+          <h3>{collection.PlaylistName}</h3>
+          <p>{collection.PlaylistDescription}</p>
+        </div>
+        <div className={styles.rightBar}></div>
+      </div>
+    ))}
+    </div>
+    
 
     <Footer/>
     </div>

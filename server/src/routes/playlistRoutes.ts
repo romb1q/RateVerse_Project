@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import PlaylistController from '../controllers/playlistController';
 
+
 const router = Router();
 
 router.get('/playlists', PlaylistController.getAllPlaylists);
@@ -16,6 +17,9 @@ router.post('/playlists/content/:playlistID/:contentID', PlaylistController.addC
 router.delete('/playlists/content/:playlistID/:contentID', PlaylistController.removeContentFromPlaylist);
 
 router.put('/playlists/:playlistID', PlaylistController.updatePlaylist);
+
+
+router.get('/playlists/collections', PlaylistController.getCollections);
 
 
 export default router;

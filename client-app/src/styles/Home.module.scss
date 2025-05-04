@@ -327,3 +327,144 @@ $accent-color: #010004;
   }
 
 }
+
+
+
+
+
+
+
+//-----------------------------------------------------------------------------
+.collectionsContainer {
+  display:grid;
+  margin-top: 100px;
+  grid-template-columns: 1fr 1fr;
+
+}
+.collectionCard {
+  margin: 30px;
+  height: 100px;
+  width: 80%;
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  background-color: $secondary-color;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  overflow: hidden;
+
+  .textBlock {
+    background: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    
+    h3, p{
+    max-width: 350px;
+    background: none;
+    color: $accent-color;
+  }
+}
+
+  &:hover {
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    .leftBar {
+      width: 40px;
+    }
+    .rightBar {
+      width: 40px;
+    }
+  }
+
+  .content {
+    margin-left: 1.7rem;
+    background-color: $secondary-color;
+
+    .name {
+    background-color: $secondary-color;
+    }
+    .description {
+      max-width: 200px;
+    background-color: $secondary-color;
+    }
+    
+  }
+  .actions {
+    background-color: $secondary-color;
+  }
+}
+
+.leftBar {
+  position: absolute;
+  width: 20px;
+  background-color: #5b3cc4;
+  height: 100%;
+  transition: width 0.3s ease;
+
+}
+.rightBar {
+  position: absolute;
+  width: 20px;
+  background-color: #5b3cc4;
+  height: 100%;
+  transition: width 0.3s ease;
+
+}
+
+.content {
+  flex: 1;
+  padding: 16px;
+}
+
+.name {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: #222;
+}
+
+.description {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  padding: 16px;
+
+  button {
+    font-size: 14px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #ddd;
+    }
+  }
+
+  .editButton {
+    background-color: #f5f5f5;
+    color: #333;
+  }
+
+  .deleteButton {
+    background-color: #eee;
+    color: #d00;
+  }
+}
+.leftBar {
+  left: 0;
+}
+.rightBar {
+  right: 0;
+}

@@ -52,7 +52,7 @@ export async function refreshAccessToken(req: Request, res: Response): Promise<v
 
     if (!REFRESH_SECRET || !JWT_SECRET) {
         console.error("Ошибка: Переменные окружения REFRESH_SECRET или JWT_SECRET не определены.");
-        process.exit(1); // Остановка сервера при отсутствии секретов
+        process.exit(1);
     }
 
     try {

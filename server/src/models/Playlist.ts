@@ -1,6 +1,7 @@
 import { Model, DataTypes, Optional } from 'sequelize';
 import sequelize from '../config/database';
 import PlaylistContent from './PlaylistContent';
+import User from './User';
 
 export interface PlaylistAttributes {
   PlaylistID: number;
@@ -8,6 +9,7 @@ export interface PlaylistAttributes {
   PlaylistName: string;
   PlaylistDescription?: string;
   PlaylistDate: Date;
+  IsCollection: boolean;
 }
 
 export interface PlaylistCreationAttributes extends Optional<PlaylistAttributes, 'PlaylistID'> {}
@@ -18,6 +20,7 @@ class Playlist extends Model<PlaylistAttributes, PlaylistCreationAttributes> imp
   public PlaylistName!: string;
   public PlaylistDescription?: string;
   public PlaylistDate!: Date;
+  public IsCollection!: boolean;
 }
 
 Playlist.init(
@@ -48,6 +51,11 @@ Playlist.init(
       allowNull: false,
       defaultValue: DataTypes.NOW,
     },
+    IsCollection: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
   },
   {
     sequelize,
@@ -56,6 +64,9 @@ Playlist.init(
     timestamps: false,
   }
 );
+
 Playlist.hasMany(PlaylistContent, { foreignKey: 'PlaylistID', as: 'contents' });
+
+Playlist.belongsTo(User, { foreignKey: 'PlaylistUserID' });
 
 export default Playlist;

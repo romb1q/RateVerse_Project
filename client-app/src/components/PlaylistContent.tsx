@@ -1,3 +1,4 @@
+import { jwtDecode } from "jwt-decode";
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -16,6 +17,7 @@ interface Content {
 
 const PlaylistContent: React.FC = () => {
   const { playlistID } = useParams<{ playlistID: string }>();
+  const [playlist, setPlaylist] = useState<any>(null);
   const [contentList, setContentList] = useState<Content[]>([]);
   const [playlistName, setPlaylistName] = useState<string>('Untitled Playlist');
   const [loading, setLoading] = useState(true);
@@ -25,7 +27,16 @@ const PlaylistContent: React.FC = () => {
   //const [selectedContent, setSelectedContent] = useState<Content[]>([]);
   const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [currentUserID, setCurrentUserID] = useState<number | null>(null);
 
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      const decoded: any = jwtDecode(token);
+      setCurrentUserID(decoded.userId);
+    }
+  }, []);
+  
   const navigate = useNavigate();
 
   const handleBack = () => {
@@ -46,6 +57,7 @@ const PlaylistContent: React.FC = () => {
           const transformedContents = fetchedData.contents.map((item: { contentDetails: Content }) => item.contentDetails);
           setContentList(transformedContents);
           setPlaylistName(fetchedData.PlaylistName || 'Untitled Playlist');
+          setPlaylist(fetchedData);
         } else {
           setContentList([]);
         }
@@ -171,6 +183,7 @@ const PlaylistContent: React.FC = () => {
         <h1 className="playlist-content__title">{playlistName}</h1>
       </header>
 
+      {playlist?.PlaylistUserID === currentUserID && (
       <div className="search">
         <p>Добавление контента в плейлист:</p>
         <input
@@ -179,7 +192,7 @@ const PlaylistContent: React.FC = () => {
           value={searchQuery}
           onChange={(e) => handleSearchInput(e.target.value)}
           onFocus={() => setIsDropdownVisible(true)}
-          onBlur={() => setTimeout(() => setIsDropdownVisible(false), 200)} // Задержка для обработки кликов
+          onBlur={() => setTimeout(() => setIsDropdownVisible(false), 200)}
         />
         {isDropdownVisible && (
           <ul className="dropdown">
@@ -190,7 +203,6 @@ const PlaylistContent: React.FC = () => {
             ) : (
               searchResults.map((content) => (
                 <li key={content.ContentID} onClick={() => addContentToPlaylist(content)}>
-                  
                   <div>
                     <p>{content.ContentName}</p>
                   </div>
@@ -200,6 +212,8 @@ const PlaylistContent: React.FC = () => {
           </ul>
         )}
       </div>
+    )}
+      
 
       <div className="playlist-content__list">
         {contentList.map((content) => (
@@ -212,7 +226,9 @@ const PlaylistContent: React.FC = () => {
             <div className="content-card__info">
               <h2 className="content-card__name">{content.ContentName}</h2>
               <p className="content-card__description">{content.ContentDescription || 'Описание отсутствует.'}</p>
-              <button
+              
+                 {playlist?.PlaylistUserID === currentUserID && (
+                    <button
                    className="content-card__remove-button"
                    onClick={(e) => {
                      e.stopPropagation();
@@ -221,6 +237,7 @@ const PlaylistContent: React.FC = () => {
                  >
                    Удалить
                  </button>
+                  )}
             </div>
           </div>
         ))}
@@ -231,3 +248,7 @@ const PlaylistContent: React.FC = () => {
 };
 
 export default PlaylistContent;
+function jwt_decode(token: string): any {
+  throw new Error('Function not implemented.');
+}
+

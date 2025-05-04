@@ -1,10 +1,13 @@
 import Content from '../models/Content';
 import Playlist from '../models/Playlist';
 import PlaylistContent from '../models/PlaylistContent';
+import User from '../models/User';
 
 
 class PlaylistService {
   static async getAllPlaylists(userID: number) {
+
+
     try {
       const playlists = await Playlist.findAll({
         where: { PlaylistUserID: userID },
@@ -22,12 +25,39 @@ class PlaylistService {
     }
   }
 
-  static async createPlaylist(userID: number, name: string, description?: string) {
+  static async getAllCollections() {
+    try {
+      const collections = await Playlist.findAll({
+        where: { IsCollection: true },
+        include: [
+          {
+            model: User,
+            as: 'User',
+            attributes: ['UserName'],
+          },
+        ],
+      });
+      return collections;
+    } catch (error) {
+      console.error('Error fetching collections:', error);
+      throw new Error('Failed to fetch collections.');
+    }
+  }
+
+  static async createPlaylist(userID: number, name: string, description?: string, isCollection = false) {
+    const user = await User.findByPk(userID);
+
+    if (!user) throw new Error('Пользователь не найден');
+
+    if (isCollection && user.UserRole !== 'admin') {
+      throw new Error('Только админы могут создавать подборки');
+    }
     const newPlaylist = await Playlist.create({
       PlaylistUserID: userID,
       PlaylistName: name,
       PlaylistDescription: description,
       PlaylistDate: new Date(),
+      IsCollection: isCollection,
     });
     return newPlaylist;
   }
@@ -45,6 +75,10 @@ class PlaylistService {
     if (!playlist) {
       throw new Error('Плейлист не найден.');
     }
+
+    /*if (playlist.PlaylistUserID !== userID) {
+      throw new Error('Access denied: you are not the owner of this playlist.');
+    }*/
   
     const content = await Content.findByPk(contentID);
     if (!content) {
@@ -110,7 +144,7 @@ class PlaylistService {
   static async getPlaylistContent(playlistID: number, userID: number) {
     try {
       const playlist = await Playlist.findOne({
-        where: { PlaylistID: playlistID, PlaylistUserID: userID },
+        where: { PlaylistID: playlistID },
         include: [
           {
             model: PlaylistContent,
@@ -123,10 +157,15 @@ class PlaylistService {
             ],
           },
         ],
+        attributes: ['PlaylistID', 'PlaylistName', 'PlaylistUserID', 'PlaylistDescription', 'IsCollection'],
       });
 
       if (!playlist) {
         throw new Error('Playlist not found or access denied.');
+      }
+
+      if (!playlist.IsCollection && playlist.PlaylistUserID !== userID) {
+        throw new Error('Access denied.');
       }
 
       return playlist;

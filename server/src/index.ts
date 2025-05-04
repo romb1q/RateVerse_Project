@@ -15,6 +15,7 @@ import activityRoutes from './routes/activityRoutes';
 import recommendationRoutes from './routes/recommendationRoutes';
 import contentStatsRouter from './routes/contentStatRoutes';
 import userStatsRouter from './routes/userStatsRoute';
+import collectionsRouter from './routes/collectionsRoute';
 const cookieParser = require('cookie-parser');
 
 const app = express();
@@ -38,6 +39,7 @@ app.use('/api', activityRoutes);
 app.use('/api', recommendationRoutes);
 app.use('/api', contentStatsRouter);
 app.use('/api', userStatsRouter);
+app.use('/api', collectionsRouter);
 
 app.use('/uploads/', express.static(path.join(__dirname, '../uploads')));
 

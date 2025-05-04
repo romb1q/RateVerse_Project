@@ -20,6 +20,7 @@ const PlaylistCreator: React.FC = () => {
   const [selectedContent, setSelectedContent] = useState<Content[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
+  const [isCollection, setIsCollection] = useState<boolean>(false);
 
 
   const navigate = useNavigate();
@@ -82,6 +83,7 @@ const PlaylistCreator: React.FC = () => {
         {
           name,
           description,
+          isCollection,
         },
         {
           headers: {
@@ -205,7 +207,13 @@ const PlaylistCreator: React.FC = () => {
             ))}
           </ul>
         </div>
-
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={isCollection}
+            onChange={(e) => setIsCollection(e.target.checked)}
+          />Это коллекция (только для админов)
+        </label>
         <button className={styles.createButton} onClick={createPlaylist}>
           Создать плейлист
         </button>

@@ -43,7 +43,7 @@ export const checkRole = (roles: string[]) => {
       (req as any).user = user;
       next();
     } catch (error) {
-      const err = error as Error; // Приведение к типу `Error`
+      const err = error as Error;
       console.error('JWT verification error:', err.message);
 
       if (roles.includes('guest')) {

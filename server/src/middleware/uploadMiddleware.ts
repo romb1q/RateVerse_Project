@@ -7,7 +7,7 @@ const storage = multer.diskStorage({
     cb(null, 'uploads/');
   },
   filename: (req, file, cb) => {
-    console.log('Обработка файла в multer:', file); // Лог файла
+    console.log('Обработка файла в multer:', file);
     const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
     cb(null, `${uniqueSuffix}${path.extname(file.originalname)}`);
   },

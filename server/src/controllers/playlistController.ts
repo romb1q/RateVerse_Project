@@ -22,6 +22,16 @@ class PlaylistController {
       res.status(500).json({ error: error.message });
     }
   }
+
+  static async getCollections(req: Request, res: Response): Promise<void> {
+    try {
+      const collections = await PlaylistService.getAllCollections();
+      res.status(200).json(collections);
+    } catch (error) {
+      console.error('Ошибка при получении подборок:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  };
   static async createPlaylist(req: Request, res: Response) {
     const authHeader = req.headers.authorization;
   
@@ -35,8 +45,8 @@ class PlaylistController {
       const decoded = jwt.verify(token, "jwt_secret");
       const userID = (decoded as any).userId;
 
-      const { name, description } = req.body;
-      const playlist = await PlaylistService.createPlaylist(userID, name, description);
+      const { name, description, isCollection } = req.body;
+      const playlist = await PlaylistService.createPlaylist(userID, name, description, isCollection);
       res.status(201).json(playlist);
     } catch (error: any) {
       res.status(500).json({ error: error.message });
